@@ -6,7 +6,7 @@ With few exceptions, most of the demonstrated functionality is kept in kept in s
 
 The sketches are organized into folders:
 + **Basic** - contains examples for a single functionality, which are easier to extend and combine
-+ **Utilities** - contains examples which can be useful for testing or improving your sketch 
++ **Utility** - contains examples which can be useful for testing or improving the behaviour your sketch 
 + **Basic** - contains examples combining different functionalities, as starting points for bigger sketches 
 
 The basic examples include objects and methods to:
