@@ -64,7 +64,7 @@ Have fun exploring, extending and combining!
 ### Advanced
 
 + **Audio_Pentatonic** - a basic musical instrument with a pentatonic scale.
-+ **Cardboard_Scene** - a stereo 3D scene a la cardboard, controlling the camera using the device'S orientation.
++ **Cardboard_Scene** - a stereo 3D scene a la cardboard, controlling the camera using the device's orientation.
 + **Map_GPS_Sound** - displays the user's location on a map and plays an audio sample depending on the user's proximity to a target
 + **Roly_Poly_3D** - illustrates using the motion sensors to draw a textured cube which keeps its orientation as the device is turned.
 + **WiFi_Heartbeat** - causes the device to vibrate rythmically depending on the total amount of WiFi signal strengths.
