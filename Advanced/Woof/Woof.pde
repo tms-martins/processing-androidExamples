@@ -33,8 +33,10 @@ float increase_nervousness = 0.1;
 
 
 void setup() {
+  fullScreen();  
   orientation(PORTRAIT);
-  size(displayWidth, displayHeight);
+  requestPermission("android.permission.RECORD_AUDIO", "handlePermission");
+  
   frameRate(30);
   
   // create the audio player for each sound
@@ -60,7 +62,7 @@ void resume() {
   startRecorder();
   
   println("Wake-locking");
-  WakeLock_lock(PowerManager.SCREEN_DIM_WAKE_LOCK);
+  WakeLock_lock(PowerManager.SCREEN_DIM_WAKE_LOCK);  
 }
 
 
@@ -107,7 +109,7 @@ void draw() {
   // high nervousness means a bigger chance of barking, and long barks
   else {
     if (chance_of_barking > 94) {
-      if (which_bark) < 50) {
+      if (which_bark < 50) {
         player_bark_long_1.play();
         println("Long 1");
       }
@@ -133,7 +135,7 @@ void draw() {
   
   // draw the status/info text
   textAlign(CENTER, CENTER); 
-  textSize(width/20);
+  textSize(displayDensity * 20);
   fill(0);
   String message = "Nervousness:\n" + (int)nervousness + "\nSmooth Amplitude:\n" + smoothAmplitude + "\nRough Amplitude:\n" + amplitude;
   text(message, width/2, height/2);
@@ -142,6 +144,12 @@ void draw() {
   if(smoothAmplitude > 18000 && nervousness > max_nervousness * 1/3) {
     nervousness = 0;
     player_whine_1.play();
+  }  
+}
+
+void handlePermission(boolean granted) {
+  if (granted) {
+    println("granted permission... starting recorder");
+    startRecorder();    
   }
-  
 }

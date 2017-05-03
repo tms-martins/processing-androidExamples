@@ -21,8 +21,8 @@
 PAAudioPlayer player;
 
 void setup() {
+  fullScreen(P2D);
   orientation(PORTRAIT);
-  size(displayWidth, displayHeight, P2D);
   
   // create the player object and load a file
   player = new PAAudioPlayer();

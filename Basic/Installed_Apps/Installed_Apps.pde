@@ -13,8 +13,8 @@ ArrayList<String> appsList;
 
 
 void setup() {
-  orientation(PORTRAIT);
-  size(displayWidth, displayHeight, P2D);
+  fullScreen(P2D);
+  orientation(PORTRAIT);  
   
   // obtain a list of installed apps
   // you can also use getAllAppsList() for a full list including system apps
@@ -26,7 +26,7 @@ void setup() {
   }
   
   // set the text size and drawing parameters
-  textSize(height/30);
+  textSize(displayDensity * 24);
   textAlign(CENTER, CENTER);
   fill(0);
   noStroke();

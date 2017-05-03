@@ -55,9 +55,9 @@ void onCreate(Bundle savedInstanceState) {
 }
 //********************************************************************
 
-void setup() {
+void setup() {  
+  fullScreen(P3D);   //used to set P3D renderer
   orientation(LANDSCAPE);                   //on some devices, causes crashing if not started in this orientation (why?)
-  size(displayWidth, displayHeight, P3D);   //used to set P3D renderer
   
   sensor = new KetaiSensor(this);
   sensor.start();

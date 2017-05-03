@@ -34,14 +34,14 @@ void onActivityResult(int requestCode, int resultCode, android.content.Intent da
 
 
 void setup() {
+  fullScreen(P2D);
   orientation(PORTRAIT);
-  size(displayWidth, displayHeight, P2D);
   
   // initialize the STT object
   stt = new PASpeechToText(this);
   
   // set the text size and drawing parameters
-  textSize(height/30);
+  textSize(displayDensity * 24);
   textAlign(CENTER, CENTER);
   fill(0);
   noStroke();

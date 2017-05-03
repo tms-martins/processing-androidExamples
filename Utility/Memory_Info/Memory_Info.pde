@@ -22,7 +22,7 @@ String memoryInfoString = "nothing yet...";
 
 void setup() {
   orientation(PORTRAIT);
-  size(displayWidth, displayHeight, P2D);
+  fullScreen(P2D);
   
   // obtain memory info
   int usedMemory = getUsedMemorySizeMB();
@@ -36,7 +36,7 @@ void setup() {
   println(memoryInfoString);
   
   // set the text size and drawing parameters
-  textSize(height/30);
+  textSize(displayDensity * 30);
   textAlign(CENTER, CENTER);
   fill(0);
   noStroke();

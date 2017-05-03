@@ -3,6 +3,24 @@ import android.provider.Contacts.*;
 import android.provider.ContactsContract.*;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 
+void handleRequest(boolean granted) {
+  permissionDenied = !granted;
+  if (granted) {
+    // initialize the array list and read contacts into it    
+    readContacts(contacts);
+
+    // print all contacts to the console 
+    println("CONTACTS ===================");
+    for (ContactItem contact : contacts) {
+      println(contact.name);
+      for (String phoneNumber : contact.phoneList) {
+        println("  " + phoneNumber);
+      }
+    }
+    println("END CONTACTS ===============");
+  }
+}
+
 void readContacts(ArrayList<ContactItem> contactsList) {
   String displayName = "<none>"; 
   String phoneNumber = "<none>"; 

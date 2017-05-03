@@ -17,7 +17,7 @@ void WakeLock_lock(int lockTypeFlag) {
       return;
     }
     println("obtaining WakeLock object");
-    wakeLock = powerManager.newWakeLock(lockTypeFlag, "My Processing Sketch");
+    wakeLock = powerManager.newWakeLock(lockTypeFlag, "Cardboard_Scene");
   }
   wakeLock.acquire();
 }

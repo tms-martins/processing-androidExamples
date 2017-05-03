@@ -1,11 +1,15 @@
 import android.media.MediaRecorder;
 
 private MediaRecorder mRecorder = null;
+private boolean recorderStopped = false;
 
 int amplitude = 0;
 int smoothAmplitude = 0;
 
 boolean startRecorder() {
+  if (!hasPermission("android.permission.RECORD_AUDIO")) return false;
+  if (mRecorder != null && !recorderStopped) return false;
+  
   if (mRecorder == null) {
     println("Creating MediaRecorder");
     mRecorder = new MediaRecorder();
@@ -40,6 +44,7 @@ boolean startRecorder() {
     return false;
   } 
   println("Recorder started!");
+  recorderStopped = false;
   return true;
 }
 
@@ -48,6 +53,7 @@ void stopRecorder() {
     try {
       println("Stopping MediaRecorder...");
       mRecorder.stop();
+      recorderStopped = true;
     } 
     catch (IllegalStateException e) {
       println("MediaRecorder: Illegal State");

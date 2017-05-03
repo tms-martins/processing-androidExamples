@@ -56,8 +56,14 @@ int maxTimePlayerRepeat = 5000;
 String message = "setting up";
 
 void setup() {
+  fullScreen(P2D);
   orientation(PORTRAIT);
-  size(displayWidth, displayHeight, P2D);
+  
+  
+  // No need to request permission for ACCESS_COARSE_LOCATION because it is the same group as
+  // ACCESS_FINE_LOCATION, so with requesting one, all the other permissions in the same group
+  // will be granted as well.
+  requestPermission("android.permission.ACCESS_FINE_LOCATION", "onLocationPermission");  
   
   // load the map image, pass it together with the corner's GPS coordinates to initialize the map
   mapImage = loadImage("Map_Linz_Downtown.jpg");
@@ -139,7 +145,7 @@ void draw() {
   
   // draw a status message within the rectangle 
   textAlign(LEFT, CENTER);
-  textSize(height/35);
+  textSize(displayDensity * 30);
   text(message, 10, height * 4/5, width, height /5);
 }
 
@@ -178,4 +184,10 @@ void onLocationEvent(Location _location)
   altitude  = _location.getAltitude();
   accuracy  = _location.getAccuracy();
   provider  = _location.getProvider();
+}
+
+void onLocationPermission(boolean granted) {
+  if (!granted) {
+    println("LOCATION WILL NOT BE AVAILABLE");
+  }
 }

@@ -17,8 +17,8 @@ PAAudioPlayer [] notes = new PAAudioPlayer [numNotes];
 float touchAreaSize;
 
 void setup() {
-  orientation(PORTRAIT);
-  size(displayWidth, displayHeight, P2D);
+  fullScreen(P2D);
+  orientation(PORTRAIT);  
   
   // we add 1 to the number of notes because we will have a sixth "random" note
   touchAreaSize = displayHeight/(numNotes +1);

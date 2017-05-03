@@ -9,10 +9,10 @@
  */
  
 void setup() {
+  fullScreen(P2D);
   orientation(PORTRAIT);
-  size(displayWidth, displayHeight, P2D);
   
-  textSize(20);
+  textSize(displayDensity * 20);
   textAlign(CENTER, CENTER);
 }
 

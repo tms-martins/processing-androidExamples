@@ -18,14 +18,15 @@
 
 // the message to be edited and displayed on screen
 String message = "nothing";
-
+float fontSize;
 
 void setup() {
+  fullScreen(P2D);
   orientation(PORTRAIT);
-  size(displayWidth, displayHeight, P2D);
   
   // set the text size and drawing parameters
-  textSize(height/30);
+  fontSize = displayDensity * 24;
+  textSize(fontSize);
   textAlign(CENTER, TOP);
   fill(0);
   noStroke();
@@ -34,7 +35,7 @@ void setup() {
 
 void draw() {
   background(255);
-  text(message, 0, height/6, width, height);
+  text(message, 0, 5 * fontSize, width, height);
 }
 
 

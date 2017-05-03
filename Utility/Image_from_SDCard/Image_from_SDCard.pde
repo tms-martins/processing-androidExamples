@@ -31,24 +31,17 @@ String storagePath;
 PImage img;
 
 
-void setup() {  
+void setup() {    
+  fullScreen(P2D);
   orientation(PORTRAIT);
-  size(displayWidth, displayHeight, P2D);
+  requestPermission("android.permission.WRITE_EXTERNAL_STORAGE", "handleRequest");
   
   // retrieve the path to the phone's storage root, via the Android system
   storagePath = Environment.getExternalStorageDirectory().getPath() + "/";
   println("External storage path:  " + storagePath);
   
-  // try loading the image using the storage path, specified directory and filename
-  try {
-    img = loadImage(storagePath + imagePath + imageName);
-  } catch (IllegalArgumentException e) {
-    println("ERROR: Could not find file!");
-    println(e.getMessage());
-  }
-  
   // set the text size and drawing parameters
-  textSize(height/30);
+  textSize(displayDensity * 30);
   textAlign(CENTER, CENTER);
   imageMode(CENTER);
   fill(0);
@@ -64,5 +57,17 @@ void draw() {
   }
   else {
     text("Could not find image: " + storagePath + imagePath + imageName, 0, 0, width, height);
+  }
+}
+
+void handleRequest(boolean granted) {
+  if (granted) {
+    // try loading the image using the storage path, specified directory and filename
+    try {
+      img = loadImage(storagePath + imagePath + imageName);
+    } catch (IllegalArgumentException e) {
+      println("ERROR: Could not find file!");
+      println(e.getMessage());
+    }
   }
 }

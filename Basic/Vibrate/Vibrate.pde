@@ -22,14 +22,14 @@ import android.os.Vibrator;
 Vibrator buzz;
 
 void setup() {
+  fullScreen(P2D);
   orientation(PORTRAIT);
-  size(displayWidth, displayHeight, P2D);
   
   // obtain a Vibrator object by requesting it as a system service
   buzz = (Vibrator)getActivity().getSystemService(Context.VIBRATOR_SERVICE);
   
   // create a font and set the drawing parameters, which will be used during draw()
-  textFont(createFont("arial", height/30));
+  textFont(createFont("SansSerif", displayDensity * 30));
   textAlign(CENTER, CENTER);
   noStroke();
   fill(255);
