@@ -28,9 +28,9 @@ float accelX, accelY, accelZ;
 
 
 void setup() {
+  fullScreen(P3D);
   orientation(PORTRAIT);
-  size(displayWidth, displayHeight, P3D);
-
+  
   // load all six images for the cube's faces
   loadCubeFaceImages();
 

@@ -29,8 +29,8 @@ PATextToSpeech tts;
 
 
 void setup() {
+  fullScreen(P2D);
   orientation(PORTRAIT);
-  size(displayWidth, displayHeight, P2D);
   
   // initialize the TTS object
   tts = new PATextToSpeech(this);
@@ -39,7 +39,7 @@ void setup() {
   // tts = new PATextToSpeech(this, Locale.<language_in_capitals>);
 
   // set the text size and drawing parameters
-  textSize(height/30);
+  textSize(displayDensity * 24);
   textAlign(CENTER, CENTER);
   fill(0);
   noStroke();

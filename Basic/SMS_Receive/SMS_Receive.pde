@@ -25,16 +25,12 @@ String screenText = "No messages received yet";
 
 
 void setup() {
+  fullScreen(P2D);
   orientation(PORTRAIT);
-  size(displayWidth, displayHeight, P2D);
-  
-  // initialize the receiver object
-  println("SETUP: creating and registering receiver");
-  smsReceiver = new SmsReceiver();
-  smsReceiver.register();
+  requestPermission("android.permission.RECEIVE_SMS", "handleRequest");
   
   // set the text size and drawing parameters
-  textSize(height/30);
+  textSize(displayDensity * 24);
   textAlign(CENTER, CENTER);
   fill(0);
   noStroke();
@@ -43,7 +39,7 @@ void setup() {
 
 void draw() {
   // check if the receiver has a new message
-  if (smsReceiver.hasNewMessage()) {
+  if (smsReceiver != null && smsReceiver.hasNewMessage()) {
     
     // get the message and set the screen text    
     SmsMessage sms = smsReceiver.getNewMessage();
@@ -85,5 +81,15 @@ void pause() {
   if (smsReceiver != null) {
     println("PAUSE: un-registering receiver");
     smsReceiver.unregister();
+  }
+}
+
+
+void handleRequest(boolean granted) {
+  if (granted) {
+    // initialize the receiver object
+    println("SETUP: creating and registering receiver");
+    smsReceiver = new SmsReceiver();
+    smsReceiver.register();    
   }
 }

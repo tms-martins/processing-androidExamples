@@ -21,11 +21,12 @@ long count = 0;
 
 
 void setup() {
+  fullScreen(P2D);
   orientation(PORTRAIT);
-  size(displayWidth, displayHeight, P2D);
+  
   
   // set the text size and drawing parameters
-  textSize(height/30);
+  textSize(displayDensity * 30);
   textAlign(CENTER, CENTER);
   fill(0);
   noStroke();

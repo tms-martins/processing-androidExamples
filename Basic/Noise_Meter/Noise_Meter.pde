@@ -16,12 +16,13 @@
  */
 
 void setup() {
+  fullScreen(P2D);
   orientation(PORTRAIT);
-  size(displayWidth, displayHeight, P2D);
+  requestPermission("android.permission.RECORD_AUDIO", "handlePermission");
   
   noStroke();
   fill(0);
-  textSize(height/20);
+  textSize(displayDensity * 24);
   textAlign(CENTER, CENTER);
 }
 
@@ -57,4 +58,11 @@ void draw() {
   
   rect(0, 0, smoothBarSize, 40);
   rect(0, 40, barSize, 40);
+}
+
+void handlePermission(boolean granted) {
+  if (granted) {
+    println("granted permission... starting recorder");
+    startRecorder();    
+  }
 }

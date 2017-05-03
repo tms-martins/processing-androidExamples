@@ -37,8 +37,13 @@ PAMapLocation userLocation;
 PImage imageUser;
 
 void setup() {
+  fullScreen(P2D);
   orientation(PORTRAIT);
-  size(displayWidth, displayHeight, P2D);
+  
+  // No need to request permission for ACCESS_COARSE_LOCATION because it is the same group as
+  // ACCESS_FINE_LOCATION, so with requesting one, all the other permissions in the same group
+  // will be granted as well.
+  requestPermission("android.permission.ACCESS_FINE_LOCATION", "onLocationPermission");
 
   // load the map image, pass it together with the corner's GPS coordinates to initialize the map
   mapImage = loadImage("Map_Linz_Downtown.jpg");
@@ -84,7 +89,7 @@ void draw() {
 
   // draw a status message within the rectangle 
   textAlign(CENTER, CENTER);
-  textSize(height/35);
+  textSize(displayDensity * 24);
   text(message, 10, height * 7/8, width, height /8);
 }
 
@@ -108,6 +113,12 @@ void mousePressed() {
 // the KetaiLocation object must be initialized on resume() instead of setup()
 void resume() {
   location = new KetaiLocation(this);
+}
+
+void onLocationPermission(boolean granted) {
+  if (!granted) {
+    println("LOCATION WILL NOT BE AVAILABLE");
+  }
 }
 
 // called by the Ketai library when the location is updated

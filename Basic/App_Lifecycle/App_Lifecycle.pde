@@ -22,9 +22,9 @@
 
 long count = 0;
  
-void setup() {
+void setup() {  
+  fullScreen(P2D);
   orientation(PORTRAIT);
-  size(displayWidth, displayHeight, P2D);
   
   // set the text size and drawing parameters
   textSize(height/30);

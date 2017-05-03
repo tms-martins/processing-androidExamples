@@ -31,11 +31,12 @@ float timeOfLastCall = 0;
 
 
 void setup() {
+  fullScreen(P2D);
   orientation(PORTRAIT);
-  size(displayWidth, displayHeight, P2D);
+  requestPermission("android.permission.CALL_PHONE", "callRequest");
 
   // set the text size and drawing parameters
-  textSize(height/30);
+  textSize(displayDensity * 24);
   textAlign(CENTER, CENTER);
   fill(0);
   noStroke();
@@ -75,12 +76,18 @@ boolean makeACallTo(String number) {
   try {
     Intent callIntent = new Intent(Intent.ACTION_CALL);
     callIntent.setData(Uri.parse("tel:" + number));
-    startActivity(callIntent);
+    getContext().startActivity(callIntent);
     return true;
   } 
   catch (Exception e) {
     println("ERROR: Call failed, system error message follows...");
     println(e.getMessage());
     return false;
+  }
+}
+
+void callRequest(boolean granted) {
+  if (!granted) {
+    println("Cannot make phone call, sorry");   
   }
 }

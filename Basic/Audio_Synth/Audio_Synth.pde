@@ -14,8 +14,8 @@
  */
  
 void setup() {
+  fullScreen(P2D);
   orientation(PORTRAIT);
-  size(displayWidth, displayHeight, P2D);
   
   setupTrack();
 }

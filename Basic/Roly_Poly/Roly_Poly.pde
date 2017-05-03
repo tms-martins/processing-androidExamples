@@ -29,8 +29,8 @@ float objectScale = 1;
 
 
 void setup() {
+  fullScreen(P2D);
   orientation(PORTRAIT);
-  size(displayWidth, displayHeight, P2D);
 
   // load the image to display
   imageRolyPoly = loadImage("BB8.png");
@@ -46,7 +46,7 @@ void setup() {
   }
   
   // set the text size and drawing parameters
-  textSize(height/30);
+  textSize(displayDensity * 24);
   textAlign(CENTER, CENTER);
   fill(0);
   noStroke();
@@ -84,8 +84,7 @@ void draw() {
 
 
 // this function is called by the ketai sensor, on which we store sensor values
-void onAccelerometerEvent(float x, float y, float z)
-{
+void onAccelerometerEvent(float x, float y, float z) {
   accelX = x;
   accelY = y;
   accelZ = z;

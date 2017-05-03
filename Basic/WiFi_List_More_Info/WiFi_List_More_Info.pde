@@ -33,8 +33,8 @@ String message = "Tap to scan";
 
 
 void setup() {
+  fullScreen(P2D);
   orientation(PORTRAIT);
-  size(displayWidth, displayHeight, P2D);
   
   // create and initialize the WiFiList object
   wifiList = new WiFiList();
@@ -45,7 +45,7 @@ void setup() {
   wifiNetworks = wifiList.getNetworkList();
   
   // calculate a font size (we will need to keep it in a variable for later use)
-  fontSize = height/30;
+  fontSize = int(displayDensity * 30);
   
   // set the text size and drawing parameters
   textSize(fontSize);

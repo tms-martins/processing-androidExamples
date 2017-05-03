@@ -20,12 +20,12 @@
 
 
 void setup() {
+  fullScreen(P2D);
   orientation(PORTRAIT);
-  size(displayWidth, displayHeight, P2D);
   
   textAlign(CENTER, CENTER);
   fill(0);
-  textSize(width/20);
+  textSize(displayDensity * 24);
 }
 
 void draw() {

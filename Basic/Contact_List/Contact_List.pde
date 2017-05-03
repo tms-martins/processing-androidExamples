@@ -13,29 +13,17 @@
  * https://github.com/tms-martins/processing-androidExamples
  */
 
-ArrayList <ContactItem> contacts;
-
+ArrayList <ContactItem> contacts = new ArrayList<ContactItem>();
+boolean permissionDenied;
 
 void setup() {
+  fullScreen(P2D);
   orientation(PORTRAIT);
-  size(displayWidth, displayHeight, P2D);
-  
-  // initialize the array list and read contacts into it
-  contacts = new ArrayList<ContactItem>();
-  readContacts(contacts);
 
-  // print all contacts to the console 
-  println("CONTACTS ===================");
-  for (ContactItem contact : contacts) {
-    println(contact.name);
-    for (String phoneNumber : contact.phoneList) {
-      println("  " + phoneNumber);
-    }
-  }
-  println("END CONTACTS ===============");
+  requestPermission("android.permission.READ_CONTACTS", "handleRequest");
   
   // set the text size and drawing parameters
-  textSize(height/30);
+  textSize(displayDensity * 24);
   textAlign(CENTER, CENTER);
   fill(0);
   noStroke();
@@ -44,5 +32,9 @@ void setup() {
 
 void draw() {
   background(255);
-  text("Found " + contacts.size() + " contacts", 0, 0, width, height);
+  if (permissionDenied) {
+    text("The user did not give permission to read contacts", 0, 0, width, height);
+  } else {
+    text("Found " + contacts.size() + " contacts", 0, 0, width, height);
+  }  
 }

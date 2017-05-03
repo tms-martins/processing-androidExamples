@@ -18,9 +18,9 @@ void setup() {
   
   // this is necessary otherwise the app will start at 100x100 pixels; 
   // we use P2D for compatibility with older devices
-  size(displayWidth, displayHeight, P2D);
+  fullScreen(P2D);
   
-  textFont(createFont("system", 20));
+  textFont(createFont("SansSerif", displayDensity * 20));
   textAlign(CENTER, CENTER);
   println("Hello World, setup() called");
 }

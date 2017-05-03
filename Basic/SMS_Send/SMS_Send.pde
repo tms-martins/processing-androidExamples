@@ -31,11 +31,12 @@ float timeOfLastSms = 0;
 
 
 void setup() {
-  orientation(PORTRAIT);
-  size(displayWidth, displayHeight, P2D);
+  fullScreen(P2D);
+  orientation(PORTRAIT);  
+  requestPermission("android.permission.SEND_SMS", "handleRequest");
 
   // set the text size and drawing parameters
-  textSize(height/30);
+  textSize(displayDensity * 24);
   textAlign(CENTER, CENTER);
   fill(0);
   noStroke();
@@ -64,7 +65,7 @@ void mousePressed() {
   // check if enough time passed since the last SMS, to avoid spamming
   float timeSinceLastSms = millis() - timeOfLastSms;
   
-  if (timeSinceLastSms > minimumTimeBetweenSms) {
+  if (timeSinceLastSms > minimumTimeBetweenSms && hasPermission("android.permission.SEND_SMS")) {
     timeOfLastSms = millis();
     
     // compose a message including the time and date
@@ -76,5 +77,12 @@ void mousePressed() {
     // send the message using the SmsManager class
     println("Sending message <" + messageText + "> to " + phoneNumber);
     SmsManager.getDefault().sendTextMessage(phoneNumber, null, message, null, null);
+  }
+}
+
+
+void handleRequest(boolean granted) {
+  if (!granted) {
+    println("Did not get permission to sent SMS");    
   }
 }

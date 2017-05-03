@@ -33,8 +33,8 @@ int timeLastScanFinished = 0;
 String message = "Nothing yet...";
 
 void setup() {
+  fullScreen(P2D);
   orientation(PORTRAIT);
-  size(displayWidth, displayHeight, P2D);
   
   initBuzz();
   
@@ -49,7 +49,7 @@ void draw() {
   updateNetworkScan();
   updateHeartbeat();
   
-  int txtSize = width/20;
+  int txtSize = int(displayDensity * 20);
   
   // clear the background and set the text/shape properties
   background(255);

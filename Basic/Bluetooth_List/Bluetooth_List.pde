@@ -24,14 +24,15 @@ boolean devicesUpdated = true;
 
 
 void setup() {
+  fullScreen(P2D);
   orientation(PORTRAIT);
-  size(displayWidth, displayHeight, P2D);
 
   // start the Bluetooth object
   bt.start();
   
   // set the text size and drawing parameters
-  textSize(height/30);
+  textSize(displayDensity * 24);
+  println(displayDensity);
   textAlign(LEFT, TOP);
   noStroke();
   fill(0);
@@ -56,7 +57,9 @@ void draw() {
 
   // clear the background and draw text on screen
   background(255);
-  text(screenText, width/20, width/20);
+  float x = displayDensity * 24;
+  float y = 2 * x;
+  text(screenText, x, y);
 }
 
 
@@ -71,7 +74,6 @@ void mousePressed() {
 
 // The following code is required to enable bluetooth at startup.
 void onCreate(Bundle savedInstanceState) {
-  super.onCreate(savedInstanceState);
   bt = new KetaiBluetooth(this);
 }
 
