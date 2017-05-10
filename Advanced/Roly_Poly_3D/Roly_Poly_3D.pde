@@ -9,6 +9,8 @@
  *
  * Functions for drawing the textured cube are in a separate tab, so they can easily be copied onto another sketch.
  *
+ * WARNING: Some devices don't seem to support the lights() function. Try commenting out line 59 if the app is creashing.
+ *
  * Tiago Martins 2017
  * https://github.com/tms-martins/processing-androidExamples
  */
@@ -28,8 +30,8 @@ float accelX, accelY, accelZ;
 
 
 void setup() {
-  orientation(PORTRAIT);
   size(displayWidth, displayHeight, P3D);
+  orientation(PORTRAIT);
 
   // load all six images for the cube's faces
   loadCubeFaceImages();

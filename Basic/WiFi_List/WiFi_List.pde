@@ -28,8 +28,8 @@ int fontSize;
 String message = "Tap to scan";
 
 void setup() {
-  orientation(PORTRAIT);
   size(displayWidth, displayHeight, P2D);
+  orientation(PORTRAIT);
   
   // create and initialize the WiFiList object
   wifiList = new WiFiList();

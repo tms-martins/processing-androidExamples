@@ -20,8 +20,8 @@
 
 
 void setup() {
-  orientation(PORTRAIT);
   size(displayWidth, displayHeight, P2D);
+  orientation(PORTRAIT);
   
   textAlign(CENTER, CENTER);
   fill(0);

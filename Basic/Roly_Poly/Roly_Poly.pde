@@ -29,8 +29,8 @@ float objectScale = 1;
 
 
 void setup() {
-  orientation(PORTRAIT);
   size(displayWidth, displayHeight, P2D);
+  orientation(PORTRAIT);
 
   // load the image to display
   imageRolyPoly = loadImage("BB8.png");

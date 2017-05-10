@@ -21,8 +21,8 @@
 PAAudioPlayer player;
 
 void setup() {
-  orientation(PORTRAIT);
   size(displayWidth, displayHeight, P2D);
+  orientation(PORTRAIT);
   
   // create the player object and load a file
   player = new PAAudioPlayer();

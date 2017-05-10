@@ -33,8 +33,8 @@ int timeLastScanFinished = 0;
 String message = "Nothing yet...";
 
 void setup() {
-  orientation(PORTRAIT);
   size(displayWidth, displayHeight, P2D);
+  orientation(PORTRAIT);
   
   initBuzz();
   

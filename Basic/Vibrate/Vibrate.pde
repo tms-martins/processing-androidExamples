@@ -22,8 +22,8 @@ import android.os.Vibrator;
 Vibrator buzz;
 
 void setup() {
-  orientation(PORTRAIT);
   size(displayWidth, displayHeight, P2D);
+  orientation(PORTRAIT);
   
   // obtain a Vibrator object by requesting it as a system service
   buzz = (Vibrator)getActivity().getSystemService(Context.VIBRATOR_SERVICE);

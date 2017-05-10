@@ -17,8 +17,8 @@ ArrayList <ContactItem> contacts;
 
 
 void setup() {
-  orientation(PORTRAIT);
   size(displayWidth, displayHeight, P2D);
+  orientation(PORTRAIT);
   
   // initialize the array list and read contacts into it
   contacts = new ArrayList<ContactItem>();

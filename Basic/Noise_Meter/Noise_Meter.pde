@@ -16,8 +16,8 @@
  */
 
 void setup() {
-  orientation(PORTRAIT);
   size(displayWidth, displayHeight, P2D);
+  orientation(PORTRAIT);
   
   noStroke();
   fill(0);

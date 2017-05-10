@@ -25,8 +25,8 @@ String screenText = "No messages received yet";
 
 
 void setup() {
-  orientation(PORTRAIT);
   size(displayWidth, displayHeight, P2D);
+  orientation(PORTRAIT);
   
   // initialize the receiver object
   println("SETUP: creating and registering receiver");
