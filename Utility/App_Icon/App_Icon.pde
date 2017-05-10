@@ -9,8 +9,8 @@
  */
  
 void setup() {
-  orientation(PORTRAIT);
   size(displayWidth, displayHeight, P2D);
+  orientation(PORTRAIT);
   
   textSize(20);
   textAlign(CENTER, CENTER);

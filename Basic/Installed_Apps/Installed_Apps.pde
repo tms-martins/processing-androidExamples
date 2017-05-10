@@ -13,8 +13,8 @@ ArrayList<String> appsList;
 
 
 void setup() {
-  orientation(PORTRAIT);
   size(displayWidth, displayHeight, P2D);
+  orientation(PORTRAIT);
   
   // obtain a list of installed apps
   // you can also use getAllAppsList() for a full list including system apps

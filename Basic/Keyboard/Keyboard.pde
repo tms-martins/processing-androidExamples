@@ -21,8 +21,8 @@ String message = "nothing";
 
 
 void setup() {
-  orientation(PORTRAIT);
   size(displayWidth, displayHeight, P2D);
+  orientation(PORTRAIT);
   
   // set the text size and drawing parameters
   textSize(height/30);

@@ -56,8 +56,8 @@ int maxTimePlayerRepeat = 5000;
 String message = "setting up";
 
 void setup() {
-  orientation(PORTRAIT);
   size(displayWidth, displayHeight, P2D);
+  orientation(PORTRAIT);
   
   // load the map image, pass it together with the corner's GPS coordinates to initialize the map
   mapImage = loadImage("Map_Linz_Downtown.jpg");

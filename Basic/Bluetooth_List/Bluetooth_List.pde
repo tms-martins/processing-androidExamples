@@ -24,8 +24,8 @@ boolean devicesUpdated = true;
 
 
 void setup() {
-  orientation(PORTRAIT);
   size(displayWidth, displayHeight, P2D);
+  orientation(PORTRAIT);
 
   // start the Bluetooth object
   bt.start();

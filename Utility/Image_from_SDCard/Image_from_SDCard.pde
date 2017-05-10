@@ -31,9 +31,9 @@ String storagePath;
 PImage img;
 
 
-void setup() {  
-  orientation(PORTRAIT);
+void setup() {
   size(displayWidth, displayHeight, P2D);
+  orientation(PORTRAIT);
   
   // retrieve the path to the phone's storage root, via the Android system
   storagePath = Environment.getExternalStorageDirectory().getPath() + "/";

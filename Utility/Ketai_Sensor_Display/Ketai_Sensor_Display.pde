@@ -73,9 +73,8 @@ int fontHeight = 10;
 
 
 void setup() {
-  orientation(PORTRAIT);
-  // P2D uses 2D primitives and makes the sketch compatible with older devices 
   size(displayWidth, displayHeight, P2D);
+  orientation(PORTRAIT);
 
   // initialize the sensor
   sensor = new KetaiSensor(this);

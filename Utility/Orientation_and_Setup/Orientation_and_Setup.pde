@@ -11,14 +11,14 @@
  */
  
 void setup() {
+  // this is necessary otherwise the app will start at 100x100 pixels; 
+  // we use P2D for compatibility with older devices
+  size(displayWidth, displayHeight, P2D);
+
   // un-commenting the next line will prevent the sketch from re-starting when the phone is tilted
   // orientation(PORTRAIT); 
   // another possibility is 
   // orientation(LANDSCAPE);
-  
-  // this is necessary otherwise the app will start at 100x100 pixels; 
-  // we use P2D for compatibility with older devices
-  size(displayWidth, displayHeight, P2D);
   
   textFont(createFont("system", 20));
   textAlign(CENTER, CENTER);

@@ -21,8 +21,8 @@ String memoryInfoString = "nothing yet...";
 
 
 void setup() {
-  orientation(PORTRAIT);
   size(displayWidth, displayHeight, P2D);
+  orientation(PORTRAIT);
   
   // obtain memory info
   int usedMemory = getUsedMemorySizeMB();

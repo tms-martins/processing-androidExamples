@@ -56,8 +56,8 @@ void onCreate(Bundle savedInstanceState) {
 //********************************************************************
 
 void setup() {
-  orientation(LANDSCAPE);                   //on some devices, causes crashing if not started in this orientation (why?)
   size(displayWidth, displayHeight, P3D);   //used to set P3D renderer
+  orientation(LANDSCAPE);                   //on some devices, causes crashing if not started in this orientation (why?)
   
   sensor = new KetaiSensor(this);
   sensor.start();

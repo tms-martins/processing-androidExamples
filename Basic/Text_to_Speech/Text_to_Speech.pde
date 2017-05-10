@@ -29,8 +29,8 @@ PATextToSpeech tts;
 
 
 void setup() {
-  orientation(PORTRAIT);
   size(displayWidth, displayHeight, P2D);
+  orientation(PORTRAIT);
   
   // initialize the TTS object
   tts = new PATextToSpeech(this);

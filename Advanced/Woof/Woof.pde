@@ -33,8 +33,8 @@ float increase_nervousness = 0.1;
 
 
 void setup() {
-  orientation(PORTRAIT);
   size(displayWidth, displayHeight);
+  orientation(PORTRAIT);
   frameRate(30);
   
   // create the audio player for each sound

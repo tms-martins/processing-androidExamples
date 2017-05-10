@@ -34,8 +34,8 @@ void onActivityResult(int requestCode, int resultCode, android.content.Intent da
 
 
 void setup() {
-  orientation(PORTRAIT);
   size(displayWidth, displayHeight, P2D);
+  orientation(PORTRAIT);
   
   // initialize the STT object
   stt = new PASpeechToText(this);
