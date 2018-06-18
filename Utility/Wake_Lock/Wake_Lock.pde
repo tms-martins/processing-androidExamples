@@ -14,23 +14,23 @@
  *
  * This sketch requires the permission WAKE_LOCK 
  *
- * Tiago Martins 2017
+ * Tiago Martins 2017/2018
  * https://github.com/tms-martins/processing-androidExamples
  */
 
 
 void setup() {
-  size(displayWidth, displayHeight, P2D);
+  fullScreen();
   orientation(PORTRAIT);
   
   textAlign(CENTER, CENTER);
   fill(0);
-  textSize(width/20);
+  textSize(height/20);
 }
 
 void draw() {
   background(255);
-  text("The screen will stay on and bright while the app is running", 0, 0, width, height);
+  text("The screen will stay on and bright while the app is running", 10, 10, width-20, height-20);
 }
 
 void pause() {

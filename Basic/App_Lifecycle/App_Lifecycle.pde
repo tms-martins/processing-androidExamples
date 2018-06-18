@@ -14,16 +14,16 @@
  * (and that's why the value of "count" won't increase).
  *
  * The "life-cycle" of an Activity is described in:
- * http://developer.android.com/reference/android/app/Activity.html 
+ * https://developer.android.com/reference/android/app/Activity#ActivityLifecycle
  *
- * Tiago Martins 2017
+ * Tiago Martins 2017/2018
  * https://github.com/tms-martins/processing-androidExamples
  */
 
 long count = 0;
  
 void setup() {
-  size(displayWidth, displayHeight, P2D);
+  fullScreen();
   orientation(PORTRAIT);
   
   // set the text size and drawing parameters
@@ -40,7 +40,7 @@ void draw() {
   count++;
   
   background(255);
-  text("Counting: " + count + "\nApp started " + nf(millis()/1000.0, 0, 2) + " seconds ago", 0, 0, width, height);
+  text("Counting: " + count + "\nApp started " + nf(millis()/1000.0, 0, 2) + " seconds ago", 10, 10, width-20, height-20);
 }
 
 void resume() {

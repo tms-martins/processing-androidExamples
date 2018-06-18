@@ -12,7 +12,7 @@
  *
  * This sketch requires the permissions ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION.
  *
- * Tiago Martins 2017
+ * Tiago Martins 2017/2018
  * https://github.com/tms-martins/processing-androidExamples
  */
 
@@ -56,7 +56,7 @@ int maxTimePlayerRepeat = 5000;
 String message = "setting up";
 
 void setup() {
-  size(displayWidth, displayHeight, P2D);
+  fullScreen();
   orientation(PORTRAIT);
   
   // load the map image, pass it together with the corner's GPS coordinates to initialize the map

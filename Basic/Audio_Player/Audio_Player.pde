@@ -12,16 +12,16 @@
  *   http://developer.android.com/reference/android/media/MediaPlayer.html
  *
  * If you are loading the audio file from external storage, then
- * this sketch requires the permission WRITE_EXTERNAL_STORAGE
+ * this sketch requires the permission WRITE_EXTERNAL_STORAGE, which has to be explicitly requested with requestPermission()
  *
- * Tiago Martins 2017
+ * Tiago Martins 2017/2018
  * https://github.com/tms-martins/processing-androidExamples
  */
 
 PAAudioPlayer player;
 
 void setup() {
-  size(displayWidth, displayHeight, P2D);
+  fullScreen();
   orientation(PORTRAIT);
   
   // create the player object and load a file

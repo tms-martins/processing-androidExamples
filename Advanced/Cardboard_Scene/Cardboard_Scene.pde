@@ -17,13 +17,13 @@
  *
  * This sketch requires the permission WAKE_LOCK 
  *
- * Tiago Martins 2017
+ * Tiago Martins 2017/2018
  * https://github.com/tms-martins/processing-androidExamples
  */
 
 
-import android.os.Bundle;
-import android.view.WindowManager;
+//import android.os.Bundle;
+//import android.view.WindowManager;
 import ketai.sensors.*; 
 
 boolean showDebugText = true;
@@ -45,18 +45,9 @@ float orientZ;
 
 float centerOrientX = 0;
 
-//********************************************************************
-// The following code is required to prevent sleep.
-//********************************************************************
-void onCreate(Bundle savedInstanceState) {
-  super.onCreate(savedInstanceState);
-  // fix so screen doesn't go to sleep when app is active
-  getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-}
-//********************************************************************
 
 void setup() {
-  size(displayWidth, displayHeight, P3D);   //used to set P3D renderer
+  fullScreen(P3D);                          //used to set P3D renderer
   orientation(LANDSCAPE);                   //on some devices, causes crashing if not started in this orientation (why?)
   
   sensor = new KetaiSensor(this);

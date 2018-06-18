@@ -9,9 +9,9 @@
  *
  * Functions for drawing the textured cube are in a separate tab, so they can easily be copied onto another sketch.
  *
- * WARNING: Some devices don't seem to support the lights() function. Try commenting out line 59 if the app is creashing.
+ * WARNING: Some devices don't seem to support the lights() function. Try commenting out line 59 if the app is crashing.
  *
- * Tiago Martins 2017
+ * Tiago Martins 2017/2018
  * https://github.com/tms-martins/processing-androidExamples
  */
 
@@ -24,13 +24,18 @@ KetaiSensor sensor;
 boolean hasOrientation  = false;
 float orientX, orientY, orientZ;
 
+// stores the status and values of rotation
+boolean hasRotation  = false;
+float rotX, rotY, rotZ;
+
 // stores the status and values of acceleration
 boolean hasAcceleration = false;
 float accelX, accelY, accelZ;
 
 
 void setup() {
-  size(displayWidth, displayHeight, P3D);
+  // select the P3D renderer
+  fullScreen(P3D);
   orientation(PORTRAIT);
 
   // load all six images for the cube's faces
@@ -41,14 +46,18 @@ void setup() {
   sensor.start();
 
   // determine available sensors
-  hasOrientation = sensor.isOrientationAvailable();
+  hasOrientation  = sensor.isOrientationAvailable();
+  hasRotation = sensor.isOrientationAvailable();
   hasAcceleration = sensor.isAccelerometerAvailable();
 
   // report on available sensors
   if (!hasOrientation) {
-    println("No orientation data found, using accelerometer");
+    println("No orientation data found, using rotation");
   }
-  if (!hasAcceleration) {
+  else if (!hasRotation) {
+    println("No rotation data found, using accelerometer");
+  }
+  else if (!hasAcceleration) {
     println("ERROR: No accelerometer found!");
   }
 }
@@ -67,6 +76,11 @@ void draw() {
     rotateY(radians(orientX+orientZ) - HALF_PI);
     rotateZ(radians(orientZ));
   } 
+  else if (hasRotation) {
+    rotateX(radians(-rotY) - HALF_PI);
+    rotateY(radians(rotX+rotZ) - HALF_PI);
+    rotateZ(radians(rotZ));
+  } 
   else if (hasAcceleration) {
     rotateZ(atan2(accelX, accelY));
     rotateX(atan2(accelY, accelZ));
@@ -80,16 +94,24 @@ void draw() {
 
 
 // this function is called by the ketai sensor, on which we store sensor values
-void onAccelerometerEvent(float x, float y, float z) {
-  accelX = x;
-  accelY = y;
-  accelZ = z;
-}
-
-
-// this function is called by the ketai sensor, on which we store sensor values
 void onOrientationEvent(float x, float y, float z) {
   orientX = x;
   orientY = y;
   orientZ = z;
+}
+
+
+// this function is called by the ketai sensor, on which we store sensor values
+void onRotationVectorEvent(float x, float y, float z) { // ?
+  rotX = x;
+  rotY = y;
+  rotZ = z;
+}
+
+
+// this function is called by the ketai sensor, on which we store sensor values
+void onAccelerometerEvent(float x, float y, float z) {
+  accelX = x;
+  accelY = y;
+  accelZ = z;
 }

@@ -7,7 +7,7 @@
  * can reliably indicate the pull of gravity (and thus, the way down). 
  * When the device is being manipulated this method is less reliable.
  *
- * Tiago Martins 2017
+ * Tiago Martins 2017/2018
  * https://github.com/tms-martins/processing-androidExamples
  */
 
@@ -29,7 +29,7 @@ float objectScale = 1;
 
 
 void setup() {
-  size(displayWidth, displayHeight, P2D);
+  fullScreen();
   orientation(PORTRAIT);
 
   // load the image to display

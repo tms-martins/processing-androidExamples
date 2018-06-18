@@ -1,5 +1,5 @@
 /* 
- * This sketch illustrates receiving SMS messages on Android.
+ * This sketch illustrates receiving SMS messages within the app.
  *
  * For the receiver to register new messages, the app has to be in focus.
  * Received messages will still show up on the phone's SMS list (that is, they aren't hijacked by the app).
@@ -11,11 +11,15 @@
  * http://stackoverflow.com/questions/4805269/programmatically-register-a-broadcast-receiver
  *
  * This sketch requires the permission RECEIVE_SMS.
+ * The permission RECEIVE_SMS has to be explicitly requested to the user, by displaying a prompt.
  *
- * Tiago Martins 2017
+ * Tiago Martins 2017/2018
  * https://github.com/tms-martins/processing-androidExamples
  */
 
+
+// string representing the permission to be requested
+static final String permissionReceiveSMS = "android.permission.RECEIVE_SMS";
 
 // reference to the receiver object
 SmsReceiver smsReceiver;
@@ -25,8 +29,11 @@ String screenText = "No messages received yet";
 
 
 void setup() {
-  size(displayWidth, displayHeight, P2D);
+  fullScreen();
   orientation(PORTRAIT);
+  
+  // explicitly request permission to receive SMS
+  requestPermission(permissionReceiveSMS, "permissionReceiveSMSGranted");
   
   // initialize the receiver object
   println("SETUP: creating and registering receiver");
@@ -38,6 +45,11 @@ void setup() {
   textAlign(CENTER, CENTER);
   fill(0);
   noStroke();
+}
+
+
+void permissionReceiveSMSGranted(boolean granted) {
+  println("permissionReceiveSMSGranted(): " + granted);
 }
 
 
@@ -59,7 +71,7 @@ void draw() {
   }
   
   background(255);
-  text(screenText, 0, 0, width, height);
+  text(screenText, 10, 10, width-20, height-20);
 }
 
 

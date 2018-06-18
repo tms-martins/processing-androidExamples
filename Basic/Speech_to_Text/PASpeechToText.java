@@ -31,7 +31,7 @@ public class PASpeechToText {
     Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
     intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
     intent.putExtra(RecognizerIntent.EXTRA_PROMPT, strMessage);
-    app.startActivityForResult(intent, PASTT_INTENT_CODE);
+    app.getActivity().startActivityForResult(intent, PASTT_INTENT_CODE);
   }
   
   public boolean hasResults() {
