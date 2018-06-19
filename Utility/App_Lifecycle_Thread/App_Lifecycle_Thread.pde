@@ -11,17 +11,18 @@
  * The "life-cycle" of an Activity is described in:
  * http://developer.android.com/reference/android/app/Activity.html 
  *
- * Tiago Martins 2017
+ * Tiago Martins 2017/2018
  * https://github.com/tms-martins/processing-androidExamples
  */
 
 
-UpdateThread updateThread;
 long count = 0; 
+
+boolean isThreadCreated = false;
 
 
 void setup() {
-  size(displayWidth, displayHeight, P2D);
+  fullScreen();
   orientation(PORTRAIT);
   
   // set the text size and drawing parameters
@@ -34,44 +35,52 @@ void setup() {
 }
 
 
-// This function will be called by the thread, which runs in parallel and independently of the app being paused.
-// WARNING: Do not use drawing functions in here, only data-processing stuff.
-void update() {
-  count++;  
+// This function will be called by a thread, which runs in parallel and independently of the app being paused.
+// WARNING: Do not use drawing functions in here.
+void threadUpdate() {
+  while (true) {
+    count++;
+    
+    // let the thread sleep for 30 msec
+    // this may cause an exception, which must be caught
+    try {
+      Thread.sleep(30);
+    } catch (Exception e) {
+      println("Thread exception: " + e.getMessage());
+    }
+  }
 }
 
 
 // draw() is only called if the app is running in the foreground
 void draw() {
   background(255);
-  text("Counting: " + count + "\nApp started " + nf(millis()/1000.0, 0, 2) + " seconds ago", 0, 0, width, height);
+  text("Counting: " + count + "\nApp started " + nf(millis()/1000.0, 0, 2) + " seconds ago", 10, 10, width-20, height-20);
 }
 
 
-void onStart() {
-  super.onStart();
-  // check if the thread object exists; if not, create one and start it
-  if (updateThread == null) {
-    updateThread = new UpdateThread();
-    updateThread.start();
+void start() {
+  println("start() count: " + count);
+  
+  // create the thread if it doesn't already exist
+  if (!isThreadCreated) {
+    println("creating thread");
+    thread("threadUpdate");
+    isThreadCreated = true;
   }
-  println("onStart() count: " + count);
 }
 
 
-void onResume() {
-  super.onResume();
-  println("onResume() count: " + count);
+void resume() {
+  println("resume() count: " + count);
 }
 
 
-void onPause() {
-  super.onPause();
-  println("onPause() count: " + count);
+void pause() {
+  println("pause() count: " + count);
 }
 
 
-void onStop() {
-  println("onStop() count: " + count);
-  super.onStop(); 
+void stop() {
+  println("stop() count: " + count);
 }

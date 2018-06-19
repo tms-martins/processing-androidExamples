@@ -1,6 +1,6 @@
 /*
  * Renders a 3D scene in stereo (two viewports) and controls the camera using the phone's sensors.
- * This is meant for Cardboard goggles, but you can still use it in wihout: just set STEREO_RENDER to false.
+ * This is meant for Google Cardboard or similar, but you can also use it wihout the stereo view - just set STEREO_RENDER to false.
  *
  * The sketch will work better with a gyroscope-enabled device.
  * If it doesn't find a gyro, it will use the accelerometer and compass instead (it smooths the values first).
@@ -17,13 +17,11 @@
  *
  * This sketch requires the permission WAKE_LOCK 
  *
- * Tiago Martins 2017
+ * Tiago Martins 2017/2018
  * https://github.com/tms-martins/processing-androidExamples
  */
 
 
-import android.os.Bundle;
-import android.view.WindowManager;
 import ketai.sensors.*; 
 
 boolean showDebugText = true;
@@ -45,18 +43,9 @@ float orientZ;
 
 float centerOrientX = 0;
 
-//********************************************************************
-// The following code is required to prevent sleep.
-//********************************************************************
-void onCreate(Bundle savedInstanceState) {
-  super.onCreate(savedInstanceState);
-  // fix so screen doesn't go to sleep when app is active
-  getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-}
-//********************************************************************
 
 void setup() {
-  size(displayWidth, displayHeight, P3D);   //used to set P3D renderer
+  fullScreen(P3D);                          //used to set P3D renderer
   orientation(LANDSCAPE);                   //on some devices, causes crashing if not started in this orientation (why?)
   
   sensor = new KetaiSensor(this);

@@ -17,7 +17,7 @@
  * You also need to listen for and pass "activity requests" to the STT object.
  * See the function onActivityResult(...) below.
  *
- * Tiago Martins 2017
+ * Tiago Martins 2017/2018
  * https://github.com/tms-martins/processing-androidExamples
  */
  
@@ -34,7 +34,7 @@ void onActivityResult(int requestCode, int resultCode, android.content.Intent da
 
 
 void setup() {
-  size(displayWidth, displayHeight, P2D);
+  fullScreen();
   orientation(PORTRAIT);
   
   // initialize the STT object

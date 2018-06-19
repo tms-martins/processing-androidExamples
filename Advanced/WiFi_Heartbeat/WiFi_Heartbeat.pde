@@ -7,11 +7,14 @@
  *
  * Make sure the device's WiFi is turned on.
  *
- * This sketch requires the permissions ACCESS_WIFI_STATE, CHANGE_WIFI_STATE and VIBRATE.
+ * This sketch requires the permissions ACCESS_COARSE_LOCATION, ACCESS_WIFI_STATE, CHANGE_WIFI_STATE and VIBRATE.
+ * The permission ACCESS_COARSE_LOCATION has to be explicitly requested to the user, by displaying a prompt.
  *
- * Tiago Martins 2017
+ * Tiago Martins 2017/2018
  * https://github.com/tms-martins/processing-androidExamples
  */
+ 
+final static String permissionCoarseLocation = "android.permission.ACCESS_COARSE_LOCATION";
 
 // time for each cycle of vibration, in milliseconds
 int timeVibrateOn = 50;
@@ -33,8 +36,10 @@ int timeLastScanFinished = 0;
 String message = "Nothing yet...";
 
 void setup() {
-  size(displayWidth, displayHeight, P2D);
+  fullScreen();
   orientation(PORTRAIT);
+  
+  requestPermission(permissionCoarseLocation);
   
   initBuzz();
   

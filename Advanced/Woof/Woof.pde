@@ -13,8 +13,10 @@
  * or find creative solutions for the issue.
  *
  * This sketch requires the permissions RECORD_AUDIO and WAKE_LOCK.
+ * The permission RECORD_AUDIO has to be explicitly requested to the user, by displaying a prompt.
+ * This is already handled in the startRecorder() function - see the "Recorder" tab. 
  *
- * Tiago Martins 2017
+ * Tiago Martins 2017/2018
  * https://github.com/tms-martins/processing-androidExamples
  */
 
@@ -33,7 +35,7 @@ float increase_nervousness = 0.1;
 
 
 void setup() {
-  size(displayWidth, displayHeight);
+  fullScreen();
   orientation(PORTRAIT);
   frameRate(30);
   
@@ -107,7 +109,7 @@ void draw() {
   // high nervousness means a bigger chance of barking, and long barks
   else {
     if (chance_of_barking > 94) {
-      if (which_bark) < 50) {
+      if (which_bark < 50) {
         player_bark_long_1.play();
         println("Long 1");
       }
