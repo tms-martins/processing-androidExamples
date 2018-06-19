@@ -33,7 +33,7 @@ void setup() {
   orientation(PORTRAIT);
   
   // explicitly request permission to receive SMS
-  requestPermission(permissionReceiveSMS, "permissionReceiveSMSGranted");
+  requestPermission(permissionReceiveSMS);
   
   // initialize the receiver object
   println("SETUP: creating and registering receiver");
@@ -45,11 +45,6 @@ void setup() {
   textAlign(CENTER, CENTER);
   fill(0);
   noStroke();
-}
-
-
-void permissionReceiveSMSGranted(boolean granted) {
-  println("permissionReceiveSMSGranted(): " + granted);
 }
 
 

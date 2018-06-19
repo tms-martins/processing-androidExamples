@@ -50,7 +50,7 @@ class PAMap {
     this.scrW = w;
     this.scrH = h;
     println("Creating map buffer " + scrW + "x" + scrH);
-    gBuffer = app.createGraphics(scrW, scrH, P2D);
+    gBuffer = app.createGraphics(scrW, scrH);
     redrawBuffer = true;
   }
 
