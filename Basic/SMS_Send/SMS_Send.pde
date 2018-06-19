@@ -46,17 +46,8 @@ void setup() {
   noStroke();
   
   // request permissions explicitly
-  requestPermission(permissionSendSMS, "permissionSendSMSGranted");
-  requestPermission(permissionReadPhoneState, "permissionReadPhoneStateGranted");
-}
-
-
-void permissionSendSMSGranted(boolean granted) {
-  println("permissionSendSMSGranted(): " + granted);
-}
-
-void permissionReadPhoneStateGranted(boolean granted) {
-  println("permissionReadPhoneStateGranted(): " + granted);
+  requestPermission(permissionSendSMS);
+  requestPermission(permissionReadPhoneState);
 }
 
 

@@ -45,12 +45,7 @@ void setup() {
   noStroke();
   
   // request the user's permission to make calls
-  requestPermission(permissionCallPhone, "permissionCallPhoneGranted");
-}
-
-
-void permissionCallPhoneGranted(boolean granted) {
-  println("permissionCallPhoneGranted(): " + granted);
+  requestPermission(permissionCallPhone);
 }
 
 
