@@ -1,13 +1,14 @@
+
 # processing-androidExamples
 A collection of examples for Processing Android mode, some of which use the [Ketai library](https://github.com/ketai/ketai).
 
 | Currently tested with      | version |
 | ---------------------------|---------| 
-| Processing IDE             | 3.3     |
-| Android Mode               | 3.0.2   |
+| Processing IDE             | 3.3.6   |
+| Android Mode               | 4.0.1   |
 | Android SDK Tools          | 25.2.5  |
-| Android SDK Platform tools | 25.0.3  |
-| Android SDK Build Tools    | 25.0.3  |
+| Android SDK Platform tools | 28.0.0  |
+| Android SDK Build Tools    | 26.1.1  |
 
 ## Overview
 
@@ -67,5 +68,5 @@ Have fun exploring, extending and combining!
 + **Cardboard_Scene** - a stereo 3D scene a la cardboard, controlling the camera using the device's orientation.
 + **Map_GPS_Sound** - displays the user's location on a map and plays an audio sample depending on the user's proximity to a target
 + **Roly_Poly_3D** - illustrates using the motion sensors to draw a textured cube which keeps its orientation as the device is turned.
-+ **WiFi_Heartbeat** - causes the device to vibrate rythmically depending on the total amount of WiFi signal strengths.
++ **WiFi_Heartbeat** - causes the device to vibrate rhythmically depending on the total amount of WiFi signal strengths.
 + **Woof** - plays increasingly persistent barking sounds until it detects a loud noise.
