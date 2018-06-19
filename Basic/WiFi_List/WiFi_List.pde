@@ -13,11 +13,16 @@
  * http://karanbalkar.com/2014/05/display-list-of-wifi-networks-in-android/
  * and special thanks to Julian Reil
  *
- * This sketch requires the permissions ACCESS_WIFI_STATE, CHANGE_WIFI_STATE
+ * This sketch requires the permissions ACCESS_COARSE_LOCATION, ACCESS_WIFI_STATE and CHANGE_WIFI_STATE. 
+ * The permission ACCESS_COARSE_LOCATION has to be explicitly requested to the user, by displaying a prompt.
+ * 
  *
- * Tiago Martins 2016
- * tms[dot]martins[at]gmail[dot]com
+ * Tiago Martins 2017/2018
+ * https://github.com/tms-martins/processing-androidExamples
  */
+ 
+ 
+final static String permissionCoarseLocation = "android.permission.ACCESS_COARSE_LOCATION";
 
 WiFiList wifiList;
 ArrayList<WiFiListItem> wifiNetworks;
@@ -28,8 +33,10 @@ int fontSize;
 String message = "Tap to scan";
 
 void setup() {
-  size(displayWidth, displayHeight, P2D);
+  fullScreen();
   orientation(PORTRAIT);
+  
+  requestPermission(permissionCoarseLocation);
   
   // create and initialize the WiFiList object
   wifiList = new WiFiList();

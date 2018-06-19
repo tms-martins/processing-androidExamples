@@ -7,12 +7,12 @@
  *   android:largeHeap="true" 
  * to the "application" tag/element in the Adroid manifest file 
  * (generated in the sketch's folder after the first time you compiled/ran the sketch)
- * Large apps are usually divided into parts, but in Processing we are "stuck" to a monolithic app.
+ * Large apps are usually divided into parts, but in Processing we are limited to a monolithic app.
  *
  * The utility functions for memory querying are in a separate tab, 
  * so they may easily be copied onto another sketch.
  *
- * Tiago Martins 2017
+ * Tiago Martins 2017/2018
  * https://github.com/tms-martins/processing-androidExamples
  */
 
@@ -21,7 +21,7 @@ String memoryInfoString = "nothing yet...";
 
 
 void setup() {
-  size(displayWidth, displayHeight, P2D);
+  fullScreen();
   orientation(PORTRAIT);
   
   // obtain memory info
@@ -44,5 +44,5 @@ void setup() {
 
 void draw() {
   background(255);
-  text(memoryInfoString, 0, 0, width, height);
+  text(memoryInfoString, 10, 10, width-20, height-20);
 }

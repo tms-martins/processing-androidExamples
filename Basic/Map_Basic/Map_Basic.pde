@@ -6,7 +6,7 @@
  *
  * This sketch requires the permissions ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION.
  *
- * Tiago Martins 2017
+ * Tiago Martins 2017/2018
  * tms[dot]martins[at]gmail[dot]com
  */
 
@@ -37,7 +37,7 @@ PAMapLocation userLocation;
 PImage imageUser;
 
 void setup() {
-  size(displayWidth, displayHeight, P2D);
+  fullScreen();
   orientation(PORTRAIT);
 
   // load the map image, pass it together with the corner's GPS coordinates to initialize the map
@@ -48,7 +48,7 @@ void setup() {
     lowerRightLatitude, 
     lowerRightLongitude);
 
-  // sets the on-screen display area of the map                     
+  // sets the on-screen display area of the map (in this case, the whole screen)                     
   map.setView(0, 0, width, height);
 
   // set the location of points-of-interst in GPS coordinates and use a colored circle to display

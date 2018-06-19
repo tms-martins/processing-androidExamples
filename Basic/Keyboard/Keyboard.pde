@@ -2,8 +2,6 @@
  * This example includes a function to toggle (show/hide) the software keyboard 
  * and illustrates how to edit a string using the keyboard.
  *
- * IMPORTANT: for now, this sketch does not work well with autocomplete; you should turn it off.
- *
  * Pressing delete/backspace will delete one character; if none are left it will hide the keyboard.
  * Pressing return will hide the keyboard.
  *
@@ -12,16 +10,19 @@
  *
  * The function is in a separate tab, so it may easily be copied to another sketch.
  *
- * Tiago Martins 2017
+ * NOTE: this sketch does not work well with autocomplete, which should be off by default.
+ *
+ * Tiago Martins 2017/2018
  * https://github.com/tms-martins/processing-androidExamples
  */
 
+
 // the message to be edited and displayed on screen
-String message = "nothing";
+String message = "Tap the screen to toggle the keyboard and edit this message.";
 
 
 void setup() {
-  size(displayWidth, displayHeight, P2D);
+  fullScreen();
   orientation(PORTRAIT);
   
   // set the text size and drawing parameters
@@ -34,7 +35,7 @@ void setup() {
 
 void draw() {
   background(255);
-  text(message, 0, height/6, width, height);
+  text(message, 10, height/6, width-20, height);
 }
 
 
@@ -73,11 +74,17 @@ void keyPressed() {
 }
 
 
-// you are certainly welcome to add/remove according to your needs, or make a different version of this function
+// returns true for characters, numbers or signs which we may want to write
+// you are welcome to add/remove according to your needs, or make a different version of this function
 boolean isCharacterNumberOrSign(int keyPress) {
+  // lowercase characters (a to z)
   if (keyPress >= 'a' && keyPress <= 'z') return true;
+  // uppercase characters (A to Z)
   if (keyPress >= 'A' && keyPress <= 'Z') return true;
+  // digits (0 to 9)
   if (keyPress >= '0' && keyPress <= '9') return true;
+  // signs and other special characters
   if (keyPress == ' ' || keyPress == '-' || keyPress == '_' || keyPress == '.' ||  keyPress == ',' || keyPress == ';' || keyPress == '?' || keyPress == '!' || keyPress == '\'') return true;    
+ 
   return false;
 }

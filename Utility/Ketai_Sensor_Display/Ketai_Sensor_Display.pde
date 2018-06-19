@@ -3,7 +3,7 @@
  * It checks which sensors are available and displays their data as a horizontal bar graph.
  * Geolocation (e.g. GPS) is not included.
  *
- * Tiago Martins 2017
+ * Tiago Martins 2017/2018
  * https://github.com/tms-martins/processing-androidExamples
  */
 
@@ -73,7 +73,7 @@ int fontHeight = 10;
 
 
 void setup() {
-  size(displayWidth, displayHeight, P2D);
+  fullScreen();
   orientation(PORTRAIT);
 
   // initialize the sensor

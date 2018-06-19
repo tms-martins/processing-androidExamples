@@ -6,7 +6,7 @@
  *
  * This sketch requires the permissions BLUETOOTH and BLUETOOTH_ADMIN
  *
- * Tiago Martins 2017
+ * Tiago Martins 2017/2018
  * https://github.com/tms-martins/processing-androidExamples
  */
 
@@ -24,7 +24,7 @@ boolean devicesUpdated = true;
 
 
 void setup() {
-  size(displayWidth, displayHeight, P2D);
+  fullScreen();
   orientation(PORTRAIT);
 
   // start the Bluetooth object
@@ -78,5 +78,6 @@ void onCreate(Bundle savedInstanceState) {
 
 // The following code is also required to enable bluetooth at startup.
 void onActivityResult(int requestCode, int resultCode, Intent data) {
+  println("onActivityResult()");
   bt.onActivityResult(requestCode, resultCode, data);
 }

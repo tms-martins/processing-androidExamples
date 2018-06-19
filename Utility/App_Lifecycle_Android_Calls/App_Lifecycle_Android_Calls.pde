@@ -1,5 +1,5 @@
 /*
- * This sketch illustrates when several functions of the Android Activity super class are called. 
+ * This sketch illustrates when several functions of the Android Activity class are called. 
  * It also shows that the app won't keep running the draw() function when it's paused/stopped 
  * (and that's why the value of "count" won't increase).
  *
@@ -11,14 +11,14 @@
  * The "life-cycle" of an Activity is described in:
  * http://developer.android.com/reference/android/app/Activity.html 
  *
- * Tiago Martins 2017
+ * Tiago Martins 2017/2018
  * https://github.com/tms-martins/processing-androidExamples
  */
 
 long count = 0;
  
 void setup() {
-  size(displayWidth, displayHeight, P2D);
+  fullScreen();
   orientation(PORTRAIT);
   
   // set the text size and drawing parameters
@@ -35,25 +35,22 @@ void draw() {
   count++;
   
   background(255);
-  text("Counting: " + count + "\nApp started " + nf(millis()/1000.0, 0, 2) + " seconds ago", 0, 0, width, height);
+  fill(0);
+  text("Counting: " + count + "\nApp started " + nf(millis()/1000.0, 0, 2) + " seconds ago", 10, 10, width-20, height-20);
 }
 
-void onStart() {
-  super.onStart();
-  println("onStart() count: " + count);
+void start() {
+  println("start() count: " + count);
 }
 
-void onResume() {
-  super.onResume();
-  println("onResume() count: " + count);
+void resume() {
+  println("resume() count: " + count);
 }
 
-void onPause() {
-  println("onPause() count: " + count);
-  super.onPause();
+void pause() {
+  println("pause() count: " + count);
 }
 
-void onStop() {
-  println("onStop() count: " + count);
-  super.onStop(); 
+void stop() {
+  println("stop() count: " + count);
 }

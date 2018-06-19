@@ -9,12 +9,12 @@
  *
  * Synth-related variables, objects and functions are in a separate tab "Synth" which can easily be copied to another sketch.
  *
- * Tiago Martins 2017
+ * Tiago Martins 2017/2018
  * https://github.com/tms-martins/processing-androidExamples
  */
  
 void setup() {
-  size(displayWidth, displayHeight, P2D);
+  fullScreen();
   orientation(PORTRAIT);
   
   setupTrack();
@@ -28,14 +28,16 @@ void draw() {
 
 void pause() {
   println("pause()");
-  audioTrack.stop();
-  super.pause();
+  
+  // it can be the case that pause() is called before setup() or resume()
+  // so we should check if the audioTrack object has been initialized 
+  if (audioTrack != null)
+    audioTrack.stop();
 }
 
 void resume() {
   println("resume()");
   setupTrack();
-  super.resume();
 }
 
 void stop() {

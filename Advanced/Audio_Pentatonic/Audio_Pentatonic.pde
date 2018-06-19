@@ -5,7 +5,7 @@
  * By touching a white area on the screen, the corresponding note will be played.
  * By touching the pink area, a random note will be played.
  *
- * Tiago Martins 2017
+ * Tiago Martins 2017/2018
  * https://github.com/tms-martins/processing-androidExamples
  */
 
@@ -17,7 +17,7 @@ PAAudioPlayer [] notes = new PAAudioPlayer [numNotes];
 float touchAreaSize;
 
 void setup() {
-  size(displayWidth, displayHeight, P2D);
+  fullScreen();
   orientation(PORTRAIT);
   
   // we add 1 to the number of notes because we will have a sixth "random" note

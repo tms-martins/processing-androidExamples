@@ -7,9 +7,10 @@
  * Based on the code for sending SMS from
  * http://forum.processing.org/topic/is-access-to-sms-available
  *
- * This sketch requires the permission SEND_SMS.
+ * This sketch requires the permissions SEND_SMS and READ_PHONE_STATE.
+ * The permissions SEND_SMS and READ_PHONE_STATE have to be explicitly requested to the user, by displaying a prompt.
  *
- * Tiago Martins 2017
+ * Tiago Martins 2017/2018
  * https://github.com/tms-martins/processing-androidExamples
  */
 
@@ -19,19 +20,23 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 
+// strings representing the permissions to be requested
+static final String permissionSendSMS        = "android.permission.SEND_SMS";
+static final String permissionReadPhoneState = "android.permission.READ_PHONE_STATE";
+
 // Insert a valid phone number here
 String phoneNumber = ""; 
 
 // The message content, to which a date/time will be appended before sending
 String messageText = "Hello World! This SMS was sent through Processing for Android";
 
-// these will allow us to prevent "spamming" phone calls
-float minimumTimeBetweenSms = 5000; // milliseconds 
+// these will allow us to prevent "spamming" messages
+float minimumTimeBetweenSms = 3000; // milliseconds 
 float timeOfLastSms = 0;
 
 
 void setup() {
-  size(displayWidth, displayHeight, P2D);
+  fullScreen();
   orientation(PORTRAIT);
 
   // set the text size and drawing parameters
@@ -39,6 +44,10 @@ void setup() {
   textAlign(CENTER, CENTER);
   fill(0);
   noStroke();
+  
+  // request permissions explicitly
+  requestPermission(permissionSendSMS);
+  requestPermission(permissionReadPhoneState);
 }
 
 

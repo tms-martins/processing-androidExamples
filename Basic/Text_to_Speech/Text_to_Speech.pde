@@ -1,7 +1,7 @@
 /*
  * This sketch illustrates text-to-speech (TTS, speech synthesis) on Android. 
  * Tap the screen when prompted and the TTS engine will say "Hello World". 
- * The pitch will change depending on the vertical location of touch.
+ * The voice's speed and pitch will change depending on the location of touch (vertical and horizontal, respectively).
  * 
  * Your phone should have the text-to-speech data for the relevant language installed.
  * Otherwise, the sketch will not work at all. Keep an eye on the console output.
@@ -18,18 +18,19 @@
  * The TTS object PATextToSpeech is loosely based on the following tutorial:
  * https://www.tutorialspoint.com/android/android_text_to_speech.htm
  *
- * Tiago Martins 2017
+ * Tiago Martins 2017/2018
  * https://github.com/tms-martins/processing-androidExamples
  */
 
 import android.content.Intent;
+
 
 // Reference to the text-to-speech object, which is initialized in resume() and released in pause()
 PATextToSpeech tts;
 
 
 void setup() {
-  size(displayWidth, displayHeight, P2D);
+  fullScreen();
   orientation(PORTRAIT);
   
   // initialize the TTS object
@@ -59,7 +60,7 @@ void draw() {
     message = "busy...";
   }
 
-  text(message, 0, 0, width, height);
+  text(message, 10, 10, width-20, height-20);
 }
 
 

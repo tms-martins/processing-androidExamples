@@ -1,19 +1,45 @@
 import android.media.MediaRecorder;
 
-private MediaRecorder mRecorder = null;
+final static String permissionRecordAudio = "android.permission.RECORD_AUDIO";
+
+MediaRecorder mRecorder = null;
 
 int amplitude = 0;
 int smoothAmplitude = 0;
 
+void permissionAudioGranted(boolean granted) {
+  if (granted) 
+    startRecorder();
+  else
+    println("ERROR: you need to grant the app permission to record audio.");
+}
+
 boolean startRecorder() {
+  // The app needs to explicitly request permission to record audio.
+  // If the permission hasn't been previously granted, prompt the user and afterwards call permissionContactsGranted().
+  // This will in turn call startRecorder() again, so this test yields "true" and the audio recorder can be initialized.
+  if (!hasPermission(permissionRecordAudio)) {
+    requestPermission(permissionRecordAudio, "permissionAudioGranted");
+    return false;
+  }
+  
   if (mRecorder == null) {
     println("Creating MediaRecorder");
     mRecorder = new MediaRecorder();
   }
-  println("Configuring MediaRecorder");
+  else {
+    println("MediaRecorder exists already, resuming, returning true");
+    mRecorder.resume();
+    return true;
+  }
+  
+  println("Configuring MediaRecorder: setting audio source");
   mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+  println("Configuring MediaRecorder: setting output format");
   mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+  println("Configuring MediaRecorder: setting encoder");
   mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+  println("Configuring MediaRecorder: setting output file");
   mRecorder.setOutputFile("/dev/null"); 
   try {
     println("Preparing MediaRecorder...");
