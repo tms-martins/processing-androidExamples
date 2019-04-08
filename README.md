@@ -13,7 +13,7 @@ A collection of examples for Processing Android mode, some of which use the [Ket
 ## Overview
 
 Each sketch contains a description on top of the main file, and the code is commented.
-With few exceptions, most of the demonstrated functionality is kept in kept in separate tabs, so it is easier to copy onto other sketches.
+With few exceptions, most of the demonstrated functionality is kept in separate tabs, so it is easier to copy onto other sketches.
 
 The sketches are organized into folders:
 + **Basic** - contains examples for a single functionality, which are easier to extend and combine
