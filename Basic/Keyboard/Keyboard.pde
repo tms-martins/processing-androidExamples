@@ -1,18 +1,17 @@
 /*
  * This example includes a function to toggle (show/hide) the software keyboard 
- * and illustrates how to edit a string using the keyboard.
+ * and illustrates how to edit a text string using the keyboard.
  *
  * Pressing delete/backspace will delete one character; if none are left it will hide the keyboard.
  * Pressing return will hide the keyboard.
  *
- * In Android, you can also use the back arrow to close the keyboard. As this sketch doesn't explicitly
- * open or close the keyboard (just toggles its state), you may come to an inconsistent behaviour.
+ * You can also use the back arrow on the Android navigation bar to close the keyboard.
  *
  * The function is in a separate tab, so it may easily be copied to another sketch.
  *
  * NOTE: this sketch does not work well with autocomplete, which should be off by default.
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2019
  * https://github.com/tms-martins/processing-androidExamples
  */
 
@@ -22,7 +21,6 @@ String message = "Tap the screen to toggle the keyboard and edit this message.";
 
 
 void setup() {
-  fullScreen();
   orientation(PORTRAIT);
   
   // set the text size and drawing parameters
@@ -67,6 +65,7 @@ void keyPressed() {
     if (isCharacterNumberOrSign(key)) {
       message += (char)key;
     }
+    // if the user presses the "return" key, close the keyboard
     else if (key == 10) {
       toggleKeyboard();
     }

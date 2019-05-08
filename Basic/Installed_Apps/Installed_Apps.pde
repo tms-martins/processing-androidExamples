@@ -4,7 +4,7 @@
  * The functions for listing installed apps are implemented in a separate tab 
  * so they may easily be copied onto another sketch.
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2019
  * https://github.com/tms-martins/processing-androidExamples
  */
 
@@ -13,7 +13,6 @@ ArrayList<String> appsList;
 
 
 void setup() {
-  fullScreen();
   orientation(PORTRAIT);
   
   // obtain a list of installed apps
@@ -35,5 +34,5 @@ void setup() {
 
 void draw() {
   background(255);
-  text("Found " + appsList.size() + " apps\n(user-installed)", 0, 0, width, height);
+  text("Found " + appsList.size() + " apps\n(user-installed)\nCheck the Processing console for the full list.", 10, 10, width-20, height-20);
 }

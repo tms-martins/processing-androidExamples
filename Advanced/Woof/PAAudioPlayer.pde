@@ -26,7 +26,7 @@ class PAAudioPlayer extends MediaPlayer {
     
     try {
       this.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
-      this.setAudioStreamType(AudioManager.STREAM_MUSIC);    // Selects the audio strema for music/media
+      this.setAudioStreamType(AudioManager.STREAM_MUSIC);    // Selects the audio stream for music/media
       this.prepare();
       println("PAAudioPlayer: Loaded OK");
       return true;

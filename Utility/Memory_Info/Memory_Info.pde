@@ -1,7 +1,7 @@
 /*
  * This sketch retrieves the memory used by the app, as well as the maximum amount of memory which can be used.
  *
- * Android apps have a limit on how much memory they can take up. The exact number is device dependent.
+ * Android apps have a limit on how much memory they can take up. The exact number is device-dependent.
  *
  * This amount of memory can be extended by adding
  *   android:largeHeap="true" 
@@ -12,16 +12,13 @@
  * The utility functions for memory querying are in a separate tab, 
  * so they may easily be copied onto another sketch.
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2019
  * https://github.com/tms-martins/processing-androidExamples
  */
 
-
 String memoryInfoString = "nothing yet...";
 
-
 void setup() {
-  fullScreen();
   orientation(PORTRAIT);
   
   // obtain memory info

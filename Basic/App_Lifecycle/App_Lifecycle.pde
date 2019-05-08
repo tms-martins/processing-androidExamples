@@ -16,14 +16,13 @@
  * The "life-cycle" of an Activity is described in:
  * https://developer.android.com/reference/android/app/Activity#ActivityLifecycle
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2019
  * https://github.com/tms-martins/processing-androidExamples
  */
 
 long count = 0;
  
 void setup() {
-  fullScreen();
   orientation(PORTRAIT);
   
   // set the text size and drawing parameters

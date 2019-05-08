@@ -14,7 +14,7 @@
  *
  * This sketch requires the permission WAKE_LOCK 
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2019
  * https://github.com/tms-martins/processing-androidExamples
  */
 
@@ -25,7 +25,7 @@ void setup() {
   
   textAlign(CENTER, CENTER);
   fill(0);
-  textSize(height/20);
+  textSize(height/30);
 }
 
 void draw() {

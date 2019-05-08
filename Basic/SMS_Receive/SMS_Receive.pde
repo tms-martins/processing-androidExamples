@@ -13,7 +13,7 @@
  * This sketch requires the permission RECEIVE_SMS.
  * The permission RECEIVE_SMS has to be explicitly requested to the user, by displaying a prompt.
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2018
  * https://github.com/tms-martins/processing-androidExamples
  */
 
@@ -29,7 +29,6 @@ String screenText = "No messages received yet";
 
 
 void setup() {
-  fullScreen();
   orientation(PORTRAIT);
   
   // explicitly request permission to receive SMS

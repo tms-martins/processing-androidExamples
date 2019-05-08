@@ -4,7 +4,7 @@
  * - name them icon-36.png, icon-48.png, icon-72.png, icon-96.png, icon-144.png and icon-192.png
  * - place these files in the sketch folder 
  *
- * Tiago Martins 2016/2018 
+ * Tiago Martins 2016-2019 
  * https://github.com/tms-martins/processing-androidExamples
  */
  

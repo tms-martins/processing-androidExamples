@@ -1,37 +1,37 @@
 /*
- * This sketch plays increasingly persistent barking sounds until it detects a loud noise.
+ * This sketch plays increasingly persistent barking sounds until the device is tapped or moved.
  *
- * A bar representing the "nervousness" increasingly fills the screen. After a third is filled
- * single barks will occasionally be played. After two-thirds of the screen are filled, multiple
- * barks will be played.
+ * A bar representing the "nervousness" increasingly fills the screen. 
+ * After a third of the screen is filled single barks will occasionally be played. 
+ * After two-thirds of the screen are filled, multiple barks will be played.
  *
- * A darker bar on the top of the screen indicates the loudness of the detected noise.
- * If a loud noise is detected, the "nervousness" is reset and a whining sound is played.
+ * A darker bar on the top of the screen indicates the device's total acceleration.
+ * If this total is far from the gravity acceleration (9.8 m/s2) the "nervousness" is reset and a whining sound is played.
  *
- * Beware that as a result, the sketch may detect the loudness of its own sounds, and reset itself.
- * Turning the media volume down may suffice. You are, of course, encouraged to try other input methods 
- * or find creative solutions for the issue.
+ * This sketch requires the permission WAKE_LOCK.
  *
- * This sketch requires the permissions RECORD_AUDIO and WAKE_LOCK.
- * The permission RECORD_AUDIO has to be explicitly requested to the user, by displaying a prompt.
- * This is already handled in the startRecorder() function - see the "Recorder" tab. 
- *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2019
  * https://github.com/tms-martins/processing-androidExamples
  */
 
 
+// The object representing the sensor
+PASensorAccelerometer sensor;
+
 // There certainly are ways to avoid the repetition, especially if you want
 // to have more than two different barks; but this one is used for simplicity's sake.
-PAAudioPlayer player_bark_short_1;
-PAAudioPlayer player_bark_short_2;
-PAAudioPlayer player_bark_long_1;
-PAAudioPlayer player_bark_long_2;
-PAAudioPlayer player_whine_1;
+PAAudioPlayer soundBarkShort1;
+PAAudioPlayer soundBarkShort2;
+PAAudioPlayer soundBarkLong1;
+PAAudioPlayer soundBarkLong2;
+PAAudioPlayer soundWhine1;
+
+boolean isBarking = false;
+boolean isMotion  = false;
 
 float nervousness = 0;
-float max_nervousness = 100;
-float increase_nervousness = 0.1;
+float maxNervousness = 100;
+float increaseNervousness = 0.2;
 
 
 void setup() {
@@ -39,30 +39,32 @@ void setup() {
   orientation(PORTRAIT);
   frameRate(30);
   
+  // create and start the sensor
+  // the sensor should also be started/stopped on resume/pause (see below)
+  sensor = new PASensorAccelerometer(this);
+  sensor.start();
+  
   // create the audio player for each sound
-  player_bark_short_1 = new PAAudioPlayer();
-  player_bark_short_2 = new PAAudioPlayer();
-  player_bark_long_1  = new PAAudioPlayer();
-  player_bark_long_2  = new PAAudioPlayer();
-  player_whine_1      = new PAAudioPlayer();
+  soundBarkShort1 = new PAAudioPlayer();
+  soundBarkShort2 = new PAAudioPlayer();
+  soundBarkLong1  = new PAAudioPlayer();
+  soundBarkLong2  = new PAAudioPlayer();
+  soundWhine1     = new PAAudioPlayer();
   
   // load the audio files
-  player_bark_short_1.loadFile(this, "Dog_Bark_Short_01.mp3");
-  player_bark_short_2.loadFile(this, "Dog_Bark_Short_02.mp3");
-  player_bark_long_1.loadFile (this, "Dog_Bark_Long_01.mp3");
-  player_bark_long_2.loadFile (this, "Dog_Bark_Long_02.mp3");
-  player_whine_1.loadFile     (this, "Dog_Whine_01.mp3");
+  soundBarkShort1.loadFile(this, "Dog_Bark_Short_01.mp3");
+  soundBarkShort2.loadFile(this, "Dog_Bark_Short_02.mp3");
+  soundBarkLong1.loadFile (this, "Dog_Bark_Long_01.mp3");
+  soundBarkLong2.loadFile (this, "Dog_Bark_Long_02.mp3");
+  soundWhine1.loadFile    (this, "Dog_Whine_01.mp3");
 }
 
 
-// the recorder object should be checked for and initialized in resume
-// which is called when the app starts but also when its brought forth from a "paused" state
 void resume() {
-  println("resume... starting recorder");
-  startRecorder();
-  
   println("Wake-locking");
   WakeLock_lock(PowerManager.SCREEN_DIM_WAKE_LOCK);
+  
+  if (sensor != null) sensor.start();
 }
 
 
@@ -70,80 +72,97 @@ void pause() {
   println("Wake-unlocking");
   WakeLock_unlock();
   
-  println("pause... stopping recorder");
-  stopRecorder();
+  if (sensor != null) sensor.stop();
 }
 
 
 void draw() {
-  // this has to be called for the audio recorder to do its job properly
-  updateRecorder();
+  // get the sensor values and calculate the total acceleration
+  float accelX = sensor.getX();
+  float accelY = sensor.getY();
+  float accelZ = sensor.getZ();
+  float accelTotal = sqrt((accelX*accelX) + (accelY*accelY) + (accelZ*accelZ)); 
+  
+  // check if there is significant motion
+  if (accelTotal > 10.5 || accelTotal < 9.5) 
+    isMotion = true;
+  else 
+    isMotion = false;
   
   // increase and limit the nervousness
-  nervousness += increase_nervousness;
-  if (nervousness > max_nervousness) {
-    nervousness = max_nervousness;
+  nervousness += increaseNervousness;
+  if (nervousness > maxNervousness) {
+    nervousness = maxNervousness;
   }
   
   // these will help to decide if a barking sound is played, and which sound
-  float chance_of_barking = random(100);
-  float which_bark = random(100);
+  float chanceOfBarking = random(100);
+  float whichBark = random(100);
   
   // low nervousness means no barking
-  if (nervousness < max_nervousness * 1/3) {
+  if (nervousness < maxNervousness * 1/3) {
     // no barking
+    isBarking = false;
   }
   // middle nervousness means there is some chance of barking, and short barks
-  else if (nervousness < max_nervousness * 2/3) {    
-    if (chance_of_barking > 97) {
-      if (which_bark < 50) {
-        player_bark_short_1.play();
+  else if (nervousness < maxNervousness * 2/3) {
+    isBarking = true;
+    if (chanceOfBarking > 97) {
+      if (whichBark < 50) {
+        soundBarkShort1.play();
         println("Bark 1");
       }
       else {
-        player_bark_short_2.play();
+        soundBarkShort2.play();
         println("Bark 2");
       }
     }
   }
   // high nervousness means a bigger chance of barking, and long barks
   else {
-    if (chance_of_barking > 94) {
-      if (which_bark < 50) {
-        player_bark_long_1.play();
+    isBarking = true;
+    if (chanceOfBarking > 94) {
+      if (whichBark < 50) {
+        soundBarkLong1.play();
         println("Long 1");
       }
       else {
-        player_bark_long_2.play();
+        soundBarkLong2.play();
         println("Long 2");
       }
     }
   }
-  
+    
   background(255);
   noStroke();
   
   // draw a bar for nervousness, taking up the screen's height and growing from left to right
   fill(200);
-  float width_nervousness = map(nervousness, 0, max_nervousness, 0, width); 
+  float width_nervousness = map(nervousness, 0, maxNervousness, 0, width); 
   rect(0, 0, width_nervousness, height);
   
-  // draw a bar to visualize the variation/decay of amplitude more easily
-  float width_amplitude = map (smoothAmplitude, 0, 32000, 0, width);
+  // draw a bar to visualize the acceleration
+  float width_accel = map (accelTotal, 0, 20, 0, width);
   fill(150);
-  rect(0, 0, width_amplitude, height/20);
+  rect(0, 0, width_accel, height/20);
+  
+  // draw a vertical line over the acceleration bar, to visualize the total acceleration at rest
+  // (i.e. 9.8 m/s2 corresponding to the gravity pull)
+  float rest_line_x = map(9.8, 0, 20, 0, width);
+  stroke(0);
+  line(rest_line_x, 0, rest_line_x, height/20);
   
   // draw the status/info text
   textAlign(CENTER, CENTER); 
   textSize(width/20);
   fill(0);
-  String message = "Nervousness:\n" + (int)nervousness + "\nSmooth Amplitude:\n" + smoothAmplitude + "\nRough Amplitude:\n" + amplitude;
+  String message = "Nervousness:\n" + (int)nervousness + "\nTotal Accel:\n" + nf(accelTotal, 0, 2);
   text(message, width/2, height/2);
  
-  // when a loud sound is detected, reset nervousness and play a whine
-  if(smoothAmplitude > 18000 && nervousness > max_nervousness * 1/3) {
+  // when motion is detected, if barking, reset nervousness and play a whine
+  if(isMotion && isBarking) {
     nervousness = 0;
-    player_whine_1.play();
+    soundWhine1.play();
   }
   
 }

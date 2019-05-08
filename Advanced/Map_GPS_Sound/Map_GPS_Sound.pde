@@ -3,16 +3,17 @@
  * proximity to a defined target. As the player moves closer to the target, the audio sample will play
  * louder and more often.
  *
- * Tapping the screen will set the player's position, and dragging will move the map.
- * Tap the text rectangle on the lower right to enable/disable the use of location. When enabled, you won't be 
- * able to set the user's position or move the map (this is done automatically based on location coordinates).
+ * By default, tapping the map will set the user's position, and dragging will move the map.
+ * Tapping the text rectangle below the map will enable/disable the use of automatic location.
+ * When enabled, you won't be able to set the user's position or move the map (this is done automatically based on location coordinates).
  *
  * The sketch makes use of a PAMap object to display a map image and relevant locations,
  * a PAAudioPlayer object to load and play an audio sample and the Ketai library to retrieve the user's location. 
  *
  * This sketch requires the permissions ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION.
+ * The permission ACCESS_COARSE_LOCATION is explicitly requested when creating the KetaiLocation object.
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2019
  * https://github.com/tms-martins/processing-androidExamples
  */
 

@@ -17,7 +17,7 @@
  * The permission ACCESS_COARSE_LOCATION has to be explicitly requested to the user, by displaying a prompt.
  * 
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2019
  * https://github.com/tms-martins/processing-androidExamples
  */
  
@@ -33,7 +33,6 @@ int fontSize;
 String message = "Tap to scan";
 
 void setup() {
-  fullScreen();
   orientation(PORTRAIT);
   
   requestPermission(permissionCoarseLocation);

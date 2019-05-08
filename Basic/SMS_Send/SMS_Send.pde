@@ -10,7 +10,7 @@
  * This sketch requires the permissions SEND_SMS and READ_PHONE_STATE.
  * The permissions SEND_SMS and READ_PHONE_STATE have to be explicitly requested to the user, by displaying a prompt.
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2018
  * https://github.com/tms-martins/processing-androidExamples
  */
 

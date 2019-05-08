@@ -6,19 +6,18 @@
  * The app uses data from the accelerometer. When stable, values from the accelerometer 
  * can reliably indicate the pull of gravity (and thus, the way down). 
  * When the device is being manipulated this method is less reliable.
+ * This could also be done with the "roll" value of the orientation sensor - you are free to give it a try ;) 
  *
- * Tiago Martins 2017/2018
+ * The wrapper classes for sensors of different types are in the file PASensor.java, 
+ * which can easily be copied and used in another sketch.
+ *
+ * Tiago Martins 2017-2019
  * https://github.com/tms-martins/processing-androidExamples
  */
 
-import ketai.sensors.*;
 
-// reference to the ketai library sensor
-KetaiSensor sensor;
-
-// stores the status and values of acceleration
-boolean hasAccel = false;
-float accelX, accelY, accelZ;
+// object representing the accelerometer sensor
+PASensorAccelerometer sensor;
 
 // reference to the image to be displayed
 PImage imageRolyPoly;
@@ -29,38 +28,40 @@ float objectScale = 1;
 
 
 void setup() {
-  fullScreen();
   orientation(PORTRAIT);
+  textFont(createFont("Monospaced", 18 * displayDensity));
+  textAlign(LEFT, TOP);
 
   // load the image to display
   imageRolyPoly = loadImage("BB8.png");
 
-  // initialize the ketai sensor object
-  sensor = new KetaiSensor(this);
+  // initialize the sensor object
+  sensor = new PASensorAccelerometer(this);
   sensor.start();
-  
-  // check if an accelerometer is available
-  hasAccel = sensor.isAccelerometerAvailable();
-  if (!hasAccel) {
-    println("ERROR: no accelerometer available!");
-  }
-  
-  // set the text size and drawing parameters
-  textSize(height/30);
-  textAlign(CENTER, CENTER);
-  fill(0);
-  noStroke();
+}
+
+
+// when the app loses focus, stop the sensor
+void pause() {
+  println("pause()");
+  if (sensor != null) sensor.stop();
+}
+
+
+// when the app regains focus, start the sensor
+void resume() {
+  println("resume()");
+  if (sensor != null) sensor.start();
 }
 
 
 void draw() {
   background(#FAFFAD);
   
-  // if there's no accelerometer just draw a warning text and return
-  if (!hasAccel) {
-    text("Accelerometer not found!", 0, 0, width, height);
-    return;
-  }
+  // get the sensor values
+  float accelX = sensor.getX();
+  float accelY = sensor.getY();
+  float accelZ = sensor.getZ();
   
   // estimate angle based on acceleration
   if (accelZ > -8 && accelZ < 8) {
@@ -72,21 +73,21 @@ void draw() {
     objectScale = map(accelZ, -10, 10, 1.5, 0.5);
   }
   
-  // move the scene's origin to the center,
-  // rotate and scale, and draw the object
+  // move the scene's origin to the center; then rotate, scale, and draw the object
+  
   pushMatrix();
   translate(width/2, height/2);
   rotate(objectAngle);
   scale(objectScale);
   image(imageRolyPoly, -imageRolyPoly.width/2, -imageRolyPoly.height/2);
   popMatrix();
-}
-
-
-// this function is called by the ketai sensor, on which we store sensor values
-void onAccelerometerEvent(float x, float y, float z)
-{
-  accelX = x;
-  accelY = y;
-  accelZ = z;
+  
+  // Display a message with the acceleration values
+  
+  fill(0);
+  String message = "";
+  message += "X: " + nfp(accelX, 0, 2) + " m/s2\n";
+  message += "Y: " + nfp(accelY, 0, 2) + " m/s2\n";
+  message += "Z: " + nfp(accelZ, 0, 2) + " m/s2";
+  text(message, 10 * displayDensity, 10 * displayDensity);
 }

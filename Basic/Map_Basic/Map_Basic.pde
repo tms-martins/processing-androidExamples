@@ -1,13 +1,22 @@
 /*
  * This sketch exemplifies a basic location map, without resort to Google Maps or Play services.
  *
- * The location is obtained through the Ketai library.
- * When the automatic location is disabled, the user's position can be set by tapping on the map. 
+ * By default, tapping the map will set the user's position, and dragging will move the map.
+ * Tapping the text rectangle below the map will enable/disable the use of automatic location.
+ * When enabled, you won't be able to set the user's position or move the map (this is done automatically based on location coordinates).
+ *
+ * The current location (GPS coordinates) is obtained through the Ketai library.
+ *
+ * The sketch uses a custom map object PAMap, declared in a separate tab so it can easily be copied and used in another sketch.
+ * You can add and change the user's location or other points-of-interest (POI) in GPS coordinates or pixel coordinates. 
+ * To create the map you need an image where North is up, and the GPS coordinates of the corners which you can find
+ * using Google Maps or Google Earth, for instance.
  *
  * This sketch requires the permissions ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION.
+ * The permission ACCESS_COARSE_LOCATION is explicitly requested when creating the KetaiLocation object.
  *
- * Tiago Martins 2017/2018
- * tms[dot]martins[at]gmail[dot]com
+ * Tiago Martins 2017-2019
+ * https://github.com/tms-martins/processing-androidExamples
  */
 
 import ketai.sensors.*; 
