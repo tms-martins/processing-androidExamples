@@ -11,7 +11,7 @@
  * The "life-cycle" of an Activity is described in:
  * http://developer.android.com/reference/android/app/Activity.html 
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2019
  * https://github.com/tms-martins/processing-androidExamples
  */
 
@@ -22,7 +22,6 @@ boolean isThreadCreated = false;
 
 
 void setup() {
-  fullScreen();
   orientation(PORTRAIT);
   
   // set the text size and drawing parameters
@@ -41,7 +40,7 @@ void threadUpdate() {
   while (true) {
     count++;
     
-    // let the thread sleep for 30 msec
+    // let the thread sleep for 30 msec, so other threads can run
     // this may cause an exception, which must be caught
     try {
       Thread.sleep(30);

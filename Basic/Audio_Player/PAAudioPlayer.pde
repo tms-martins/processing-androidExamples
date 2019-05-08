@@ -5,6 +5,9 @@ import android.media.MediaPlayer;
 import android.os.Environment;
 
 class PAAudioPlayer extends MediaPlayer {
+  
+  boolean isLoaded = false;
+  
   PAAudioPlayer() {
   }
   
@@ -26,9 +29,10 @@ class PAAudioPlayer extends MediaPlayer {
     
     try {
       this.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
-      this.setAudioStreamType(AudioManager.STREAM_MUSIC);    // Selects the audio strema for music/media
+      this.setAudioStreamType(AudioManager.STREAM_MUSIC);    // Selects the audio stream for music/media
       this.prepare();
       println("PAAudioPlayer: Loaded OK");
+      isLoaded = true;
       return true;
     } 
     catch (IOException e) {
@@ -37,7 +41,7 @@ class PAAudioPlayer extends MediaPlayer {
     }
   }
 
-  boolean loadFileSDCard(String fileName) {
+  boolean loadFileFromStorage(String fileName) {
     String fullPath = Environment.getExternalStorageDirectory().getAbsolutePath();
     fullPath += "/" + fileName;
     return loadFileFullPath(fullPath);
@@ -50,6 +54,7 @@ class PAAudioPlayer extends MediaPlayer {
       this.setAudioStreamType(AudioManager.STREAM_MUSIC);    // Selects the audio stream for music/media
       this.prepare();
       println("PAAudioPlayer: Loaded OK");
+      isLoaded = true;
       return true;
     } 
     catch (IOException e) {

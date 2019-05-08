@@ -14,7 +14,7 @@
  * This sketch requires the permission CALL_PHONE.
  * The permission CALL_PHONE has to be explicitly requested to the user, by displaying a prompt.
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2019
  * https://github.com/tms-martins/processing-androidExamples
  */
 

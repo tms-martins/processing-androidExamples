@@ -3,12 +3,11 @@
  * It checks which sensors are available and displays their data as a horizontal bar graph.
  * Geolocation (e.g. GPS) is not included.
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2019
  * https://github.com/tms-martins/processing-androidExamples
  */
 
 import ketai.sensors.*; 
-
 
 // Ketai sensor reference
 KetaiSensor sensor;
@@ -71,9 +70,7 @@ int numberOfBars = 0;
 int barHeight = 0;
 int fontHeight = 10;
 
-
 void setup() {
-  fullScreen();
   orientation(PORTRAIT);
 
   // initialize the sensor

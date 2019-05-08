@@ -3,8 +3,11 @@
  * Tap the screen when prompted and the TTS engine will say "Hello World". 
  * The voice's speed and pitch will change depending on the location of touch (vertical and horizontal, respectively).
  * 
- * Your phone should have the text-to-speech data for the relevant language installed.
+ * NOTE: Your phone should have the text-to-speech data for the relevant language installed.
  * Otherwise, the sketch will not work at all. Keep an eye on the console output.
+ *
+ * The wrapper class for text-to-speech is in the file PATextToSpeech.java, 
+ * which can easily be copied and used in another sketch.
  *
  * After calling setup() on an object of class PATextToSpeech, it can be used to
  * - speak a sentence, using speakNow()
@@ -18,7 +21,7 @@
  * The TTS object PATextToSpeech is loosely based on the following tutorial:
  * https://www.tutorialspoint.com/android/android_text_to_speech.htm
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2019
  * https://github.com/tms-martins/processing-androidExamples
  */
 
@@ -30,7 +33,6 @@ PATextToSpeech tts;
 
 
 void setup() {
-  fullScreen();
   orientation(PORTRAIT);
   
   // initialize the TTS object
@@ -94,6 +96,7 @@ void pause() {
   // because pause() may be called before setup() 
   // (for instance, if you run it from processing and the phone's screen is off)
   if (tts != null) {  
+    tts.stopSpeaking();
     tts.release();
   }
 }

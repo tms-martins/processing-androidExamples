@@ -1,23 +1,29 @@
 /*
- * This sketch exemplifies a basic location map, without resort to Google Maps or Play services.
+ * This sketch exemplifies a basic location map, without resort to Google Maps or Play Services.
  *
- * The location is obtained through the Ketai library.
- * When the automatic location is disabled, the user's position can be set by tapping on the map. 
+ * By default, tapping the map will set the user's position, and dragging will move the map.
+ * Tapping the text rectangle below the map will enable/disable the use of automatic location.
+ * When enabled, you won't be able to set the user's position or move the map (this is done automatically based on location coordinates).
+ *
+ * The sketch uses a custom map object PAMap, declared in a separate tab so it can easily be copied and used in another sketch.
+ * You can add and change the user's location or other points-of-interest (POI) in GPS coordinates or pixel coordinates. 
+ * To create the map you need an image where North is up, and the GPS coordinates of the corners which you can find
+ * using Google Maps or Google Earth, for instance.
+ *
+ * The wrapper class for the location manager is in the file PALocationManager.java, 
+ * which can easily be copied and used in another sketch.
  *
  * This sketch requires the permissions ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION.
+ * The permission ACCESS_COARSE_LOCATION is explicitly requested by the PALocationManager.
  *
- * Tiago Martins 2017/2018
- * tms[dot]martins[at]gmail[dot]com
+ * Tiago Martins 2017-2019
+ * https://github.com/tms-martins/processing-androidExamples
  */
 
-import ketai.sensors.*; 
+// the location manager (wrapper)
+PALocationManager location;
 
-// the location object, which must be initialized inside resume()
-KetaiLocation location;
-
-// local variables for location data and state
-double longitude, latitude, altitude, accuracy;
-String provider = "none";
+// when not using live location we can instead tap the map
 boolean usingLocation = false;
 
 // map object and image 
@@ -36,8 +42,8 @@ PAMapLocation pfarrkirche;
 PAMapLocation userLocation;
 PImage imageUser;
 
+
 void setup() {
-  fullScreen();
   orientation(PORTRAIT);
 
   // load the map image, pass it together with the corner's GPS coordinates to initialize the map
@@ -58,7 +64,26 @@ void setup() {
   // set the user's location in pixels, and use an image to display
   imageUser = loadImage("pin.png");
   userLocation = map.addLocationPix("User", 200, 200, 20, 0, imageUser);
+  
+  // create and start the location manager
+  location = new PALocationManager(this);
+  location.start();
 }
+
+
+// when the app loses focus, stop the location manager
+void pause() {
+  println("pause()");
+  if (location != null) location.stop();
+}
+
+
+// when the app regains focus, start the location manager
+void resume() {
+  println("resume()");
+  if (location != null) location.start();
+}
+
 
 void draw() {
   String message = "Tap to enable automatic location";
@@ -66,10 +91,13 @@ void draw() {
   // when using location data, the sketch automatically sets the user's position and centers the map
   // the display message is also more detailed
   if (usingLocation) {
+    double latitude  = location.getLatitude();
+    double longitude = location.getLongitude();
+    
     map.setToGPS(userLocation, latitude, longitude);
     map.centerOnGPS(latitude, longitude);
     
-    message = latitude + " ; " + longitude + "\nAccuracy: " + (int)accuracy + " m (" + provider + ")";
+    message = latitude + " ; " + longitude + "\nAccuracy: " + (int)location.getAccuracy() + " m (" + location.getProvider() + ")";
   }
 
   // clear the background and draw the map
@@ -88,12 +116,14 @@ void draw() {
   text(message, 10, height * 7/8, width, height /8);
 }
 
+
 // when not using the location, pan the map by dragging the "mouse"
 void mouseDragged() {
   if (!usingLocation) {
     map.pan(mouseX - pmouseX, mouseY - pmouseY);
   }
 }
+
 
 // tapping on the lower 8th of the screen enables/disables the use of the location service;
 // when disabled, tapping on the map will set the user's location
@@ -103,23 +133,4 @@ void mousePressed() {
   } else if (!usingLocation) {
     map.setToMouse(userLocation);
   }
-}
-
-// the KetaiLocation object must be initialized on resume() instead of setup()
-void resume() {
-  location = new KetaiLocation(this);
-}
-
-// called by the Ketai library when the location is updated
-void onLocationEvent(Location _location)
-{
-  // DEBUG: uncomment to print out the location object
-  // println("onLocation event: " + _location.toString()); 
-
-  // copy the updated location data to our local variables
-  longitude = _location.getLongitude();
-  latitude  = _location.getLatitude();
-  altitude  = _location.getAltitude();
-  accuracy  = _location.getAccuracy();
-  provider  = _location.getProvider();
 }

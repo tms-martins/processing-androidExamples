@@ -3,28 +3,25 @@
  * proximity to a defined target. As the player moves closer to the target, the audio sample will play
  * louder and more often.
  *
- * Tapping the screen will set the player's position, and dragging will move the map.
- * Tap the text rectangle on the lower right to enable/disable the use of location. When enabled, you won't be 
- * able to set the user's position or move the map (this is done automatically based on location coordinates).
+ * By default, tapping the map will set the user's position, and dragging will move the map.
+ * Tapping the text rectangle below the map will enable/disable the use of automatic location.
+ * When enabled, you won't be able to set the user's position or move the map (this is done automatically based on location coordinates).
  *
  * The sketch makes use of a PAMap object to display a map image and relevant locations,
- * a PAAudioPlayer object to load and play an audio sample and the Ketai library to retrieve the user's location. 
+ * a PAAudioPlayer object to load and play an audio sample and a PALocationManager to retrieve the user's location. 
  *
  * This sketch requires the permissions ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION.
+ * The permission ACCESS_COARSE_LOCATION is explicitly requested by the PALocationManager.
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2019
  * https://github.com/tms-martins/processing-androidExamples
  */
 
-import ketai.sensors.*; 
+// the location manager (wrapper)
+PALocationManager location;
 
-// the location object, which must be initialized inside resume()
-KetaiLocation ketaiLocationService;
-
-// local variables for location data and state
-double longitude, latitude, altitude, accuracy;
-String provider = "none";
-boolean usingLocationService = false;
+// when not using live location we can instead tap the map
+boolean usingLocation = false;
 
 // map object and image 
 PAMap map;
@@ -52,11 +49,11 @@ int timeLastPlayed   = 0;
 int minTimePlayerRepeat = 1000;
 int maxTimePlayerRepeat = 5000;
 
-// GUI message
+// UI message
 String message = "setting up";
 
+
 void setup() {
-  fullScreen();
   orientation(PORTRAIT);
   
   // load the map image, pass it together with the corner's GPS coordinates to initialize the map
@@ -80,11 +77,36 @@ void setup() {
   // initialize the audio player
   audioSonar = new PAAudioPlayer();
   audioSonar.loadFile(this, "sonar.mp3");
+  
+  // create and start the location manager
+  location = new PALocationManager(this);
+  location.start();
 }
 
+
+// when the app loses focus, stop the location manager
+void pause() {
+  println("pause()");
+  if (location != null) location.stop();
+}
+
+
+// when the app regains focus, start the location manager
+void resume() {
+  println("resume()");
+  if (location != null) location.start();
+}
+
+
 void draw() {
+  // get location data
+  String provider  = location.getProvider();
+  double latitude  = location.getLatitude();
+  double longitude = location.getLongitude();
+  float  accuracy  = location.getAccuracy();
+  
   // when using location data, the sketch automatically sets the user's position and centers the map
-  if (usingLocationService) {
+  if (usingLocation) {    
     map.setToGPS(userLocation, latitude, longitude);
     map.centerOnGPS(latitude, longitude);
   }
@@ -103,14 +125,14 @@ void draw() {
   message = "Location: ";
   
   // compose the location part of the message depending on the use/state of the location service
-  if (!usingLocationService) {
+  if (!usingLocation) {
     message += "disabled (tap here to enable)";
   }
   else if (provider == "none" || accuracy == 0.0) {
     message += "no signal";
   }
   else {
-    message += provider + ", accuracy: " + nf((float)accuracy, 0, 2) + "\nlon/lat: " + (float)longitude + " ; " + (float)latitude;
+    message += provider + ", accuracy: " + nf((float)accuracy, 0, 2) + " m\nlon/lat: " + longitude + " ; " + latitude;
   }
   
   // add distance, audio volume and play time to the GUI message
@@ -145,7 +167,7 @@ void draw() {
 
 // when not using the location, pan the map by dragging the "mouse"
 void mouseDragged() {
-  if (!usingLocationService) {
+  if (!usingLocation) {
     map.pan(mouseX - pmouseX, mouseY - pmouseY);
   }
 }
@@ -154,28 +176,9 @@ void mouseDragged() {
 // when disabled, tapping on the map will set the user's location
 void mousePressed() {
   if (mouseY > height *4/5) {
-    usingLocationService = !usingLocationService;
+    usingLocation = !usingLocation;
   }
-  else if (!usingLocationService) {
+  else if (!usingLocation) {
     map.setToMouse(userLocation);
   }
-}
-
-// the KetaiLocation object must be initialized on resume() instead of setup()
-void resume() {
-  ketaiLocationService = new KetaiLocation(this);
-}
-
-// called by the Ketai library when the location is updated
-void onLocationEvent(Location _location)
-{
-  // DEBUG: uncomment to print out the location object
-  // println("onLocation event: " + _location.toString()); 
-  
-  // copy the updated location data to our local variables
-  longitude = _location.getLongitude();
-  latitude  = _location.getLatitude();
-  altitude  = _location.getAltitude();
-  accuracy  = _location.getAccuracy();
-  provider  = _location.getProvider();
 }

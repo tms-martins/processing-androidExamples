@@ -12,7 +12,7 @@
  *
  * This sketch requires the permission VIBRATE.
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2019
  * https://github.com/tms-martins/processing-androidExamples
  */
 
@@ -25,14 +25,13 @@ Vibrator buzz;
 
 
 void setup() {
-  fullScreen();
   orientation(PORTRAIT);
   
   // obtain a Vibrator object by requesting it as a system service
   buzz = (Vibrator)getActivity().getSystemService(Context.VIBRATOR_SERVICE);
   
-  // create a font and set the drawing parameters, which will be used during draw()
-  textFont(createFont("Arial", height/30));
+  // set the drawing parameters, which will be used during draw()
+  textSize(height/30);
   textAlign(CENTER, CENTER);
   noStroke();
   fill(255);
