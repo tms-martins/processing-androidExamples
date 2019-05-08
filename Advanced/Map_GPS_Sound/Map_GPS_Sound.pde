@@ -8,20 +8,24 @@
  * When enabled, you won't be able to set the user's position or move the map (this is done automatically based on location coordinates).
  *
  * The sketch makes use of a PAMap object to display a map image and relevant locations,
- * a PAAudioPlayer object to load and play an audio sample and a PALocationManager to retrieve the user's location. 
+ * a PAAudioPlayer object to load and play an audio sample and the Ketai library to retrieve the user's location. 
  *
  * This sketch requires the permissions ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION.
- * The permission ACCESS_COARSE_LOCATION is explicitly requested by the PALocationManager.
+ * The permission ACCESS_COARSE_LOCATION is explicitly requested when creating the KetaiLocation object.
  *
  * Tiago Martins 2017-2019
  * https://github.com/tms-martins/processing-androidExamples
  */
 
-// the location manager (wrapper)
-PALocationManager location;
+import ketai.sensors.*; 
 
-// when not using live location we can instead tap the map
-boolean usingLocation = false;
+// the location object, which must be initialized inside resume()
+KetaiLocation ketaiLocationService;
+
+// local variables for location data and state
+double longitude, latitude, altitude, accuracy;
+String provider = "none";
+boolean usingLocationService = false;
 
 // map object and image 
 PAMap map;
@@ -49,11 +53,11 @@ int timeLastPlayed   = 0;
 int minTimePlayerRepeat = 1000;
 int maxTimePlayerRepeat = 5000;
 
-// UI message
+// GUI message
 String message = "setting up";
 
-
 void setup() {
+  fullScreen();
   orientation(PORTRAIT);
   
   // load the map image, pass it together with the corner's GPS coordinates to initialize the map
@@ -77,36 +81,11 @@ void setup() {
   // initialize the audio player
   audioSonar = new PAAudioPlayer();
   audioSonar.loadFile(this, "sonar.mp3");
-  
-  // create and start the location manager
-  location = new PALocationManager(this);
-  location.start();
 }
-
-
-// when the app loses focus, stop the location manager
-void pause() {
-  println("pause()");
-  if (location != null) location.stop();
-}
-
-
-// when the app regains focus, start the location manager
-void resume() {
-  println("resume()");
-  if (location != null) location.start();
-}
-
 
 void draw() {
-  // get location data
-  String provider  = location.getProvider();
-  double latitude  = location.getLatitude();
-  double longitude = location.getLongitude();
-  float  accuracy  = location.getAccuracy();
-  
   // when using location data, the sketch automatically sets the user's position and centers the map
-  if (usingLocation) {    
+  if (usingLocationService) {
     map.setToGPS(userLocation, latitude, longitude);
     map.centerOnGPS(latitude, longitude);
   }
@@ -125,14 +104,14 @@ void draw() {
   message = "Location: ";
   
   // compose the location part of the message depending on the use/state of the location service
-  if (!usingLocation) {
+  if (!usingLocationService) {
     message += "disabled (tap here to enable)";
   }
   else if (provider == "none" || accuracy == 0.0) {
     message += "no signal";
   }
   else {
-    message += provider + ", accuracy: " + nf((float)accuracy, 0, 2) + " m\nlon/lat: " + longitude + " ; " + latitude;
+    message += provider + ", accuracy: " + nf((float)accuracy, 0, 2) + "\nlon/lat: " + (float)longitude + " ; " + (float)latitude;
   }
   
   // add distance, audio volume and play time to the GUI message
@@ -167,7 +146,7 @@ void draw() {
 
 // when not using the location, pan the map by dragging the "mouse"
 void mouseDragged() {
-  if (!usingLocation) {
+  if (!usingLocationService) {
     map.pan(mouseX - pmouseX, mouseY - pmouseY);
   }
 }
@@ -176,9 +155,28 @@ void mouseDragged() {
 // when disabled, tapping on the map will set the user's location
 void mousePressed() {
   if (mouseY > height *4/5) {
-    usingLocation = !usingLocation;
+    usingLocationService = !usingLocationService;
   }
-  else if (!usingLocation) {
+  else if (!usingLocationService) {
     map.setToMouse(userLocation);
   }
+}
+
+// the KetaiLocation object must be initialized on resume() instead of setup()
+void resume() {
+  ketaiLocationService = new KetaiLocation(this);
+}
+
+// called by the Ketai library when the location is updated
+void onLocationEvent(Location _location)
+{
+  // DEBUG: uncomment to print out the location object
+  // println("onLocation event: " + _location.toString()); 
+  
+  // copy the updated location data to our local variables
+  longitude = _location.getLongitude();
+  latitude  = _location.getLatitude();
+  altitude  = _location.getAltitude();
+  accuracy  = _location.getAccuracy();
+  provider  = _location.getProvider();
 }
