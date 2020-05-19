@@ -1,3 +1,5 @@
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.lang.CharSequence;
 import android.content.Context;
@@ -16,22 +18,33 @@ class WiFiList {
   WiFiList() {
     networkList = new ArrayList<ScanResult>();
   }
-  
+
   boolean isScanning() {
     return bScanning;
   }
-  
+
   ArrayList<ScanResult> getNetworkList() {
     while (bUpdatingList) {}
-    return networkList;
+    return new ArrayList<ScanResult>(networkList);
+  }
+
+  ArrayList<ScanResult> getNetworkListSortedBySignal() {
+    while (bUpdatingList) {}
+    ArrayList<ScanResult> sortedItems = new ArrayList<ScanResult>(networkList);
+    Collections.sort(sortedItems, new Comparator<ScanResult>() {
+      public int compare(ScanResult obj1, ScanResult obj2) {
+        return obj2.level - obj1.level;
+      }
+    });
+    return sortedItems;
   }
 
   void init() {
     wifiManager = (WifiManager)getActivity().getSystemService(Context.WIFI_SERVICE);
-    
+
     IntentFilter filter = new IntentFilter();
     filter.addAction(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
-    
+
     getActivity().registerReceiver(new BroadcastReceiver() {
       public void onReceive(Context context, Intent intent) {
         println("WiFiList: scan finished");
@@ -41,14 +54,21 @@ class WiFiList {
         for (ScanResult item : scanResults) {
           networkList.add(item);
         }
-        bUpdatingList =  false;
+        bUpdatingList = false;
         bScanning = false;
-        wifiScanFinished();
+        Thread t = new Thread() {
+          @Override
+          public void run() {
+            delay(20);
+            wifiScanFinished();
+          }
+        };
+        t.start();
       }
     }
     , filter);
   }
-  
+
   void scan() {
     if (bScanning) {
       println("WiFiList: already scanning");

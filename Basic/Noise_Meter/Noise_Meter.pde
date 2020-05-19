@@ -13,7 +13,7 @@
  * The permission RECORD_AUDIO has to be explicitly requested to the user, by displaying a prompt.
  * This is already handled in the startRecorder() function - see the "Recorder" tab. 
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2020
  * https://github.com/tms-martins/processing-androidExamples
  */
  
@@ -22,9 +22,7 @@ void setup() {
   fullScreen();
   orientation(PORTRAIT);
   
-  noStroke();
-  fill(0);
-  textSize(height/20);
+  textSize(24 * displayDensity);
   textAlign(CENTER, CENTER);
 }
 
@@ -47,6 +45,7 @@ void draw() {
   
   background(255);
   
+  fill(0);
   text("Smooth Amplitude:\n" + smoothAmplitude + "\n\nRough Amplitude:\n" + amplitude, width/2, height/2);
  
   // draw two bars to visualize the variation/decay of amplitude more easily,

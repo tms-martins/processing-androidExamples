@@ -3,6 +3,7 @@ import android.provider.Contacts.*;
 import android.provider.ContactsContract.*;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 
+
 void readContacts(ArrayList<ContactItem> contactsList) {
   String displayName = "<none>"; 
   String phoneNumber = "<none>"; 
@@ -61,8 +62,6 @@ void readContacts(ArrayList<ContactItem> contactsList) {
   }
   rawContacts.close();
 }
-
-
 
 
 // --------- class --------------

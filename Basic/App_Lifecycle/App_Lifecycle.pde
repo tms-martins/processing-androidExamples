@@ -16,7 +16,7 @@
  * The "life-cycle" of an Activity is described in:
  * https://developer.android.com/reference/android/app/Activity#ActivityLifecycle
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2020
  * https://github.com/tms-martins/processing-androidExamples
  */
 
@@ -27,7 +27,7 @@ void setup() {
   orientation(PORTRAIT);
   
   // set the text size and drawing parameters
-  textSize(height/30);
+  textSize(26 * displayDensity);
   textAlign(CENTER, CENTER);
   fill(0);
   noStroke();
@@ -40,7 +40,7 @@ void draw() {
   count++;
   
   background(255);
-  text("Counting: " + count + "\nApp started " + nf(millis()/1000.0, 0, 2) + " seconds ago", 10, 10, width-20, height-20);
+  text("Counting: " + count + "\nApp started " + nf(millis()/1000.0, 0, 2) + "\nseconds ago", 10, 10, width-20, height-20);
 }
 
 void resume() {

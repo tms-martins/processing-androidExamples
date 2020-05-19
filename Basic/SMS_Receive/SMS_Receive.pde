@@ -13,7 +13,7 @@
  * This sketch requires the permission RECEIVE_SMS.
  * The permission RECEIVE_SMS has to be explicitly requested to the user, by displaying a prompt.
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2020
  * https://github.com/tms-martins/processing-androidExamples
  */
 
@@ -41,7 +41,7 @@ void setup() {
   smsReceiver.register();
   
   // set the text size and drawing parameters
-  textSize(height/30);
+  textSize(24 * displayDensity);
   textAlign(CENTER, CENTER);
   fill(0);
   noStroke();

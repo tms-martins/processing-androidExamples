@@ -3,7 +3,7 @@
 A collection of examples for Processing Android mode, some of which use the [Ketai library](https://github.com/ketai/ketai).
 
 | Currently tested with      | version |
-| ---------------------------|---------| 
+| ---------------------------|---------|
 | Processing IDE             | 3.3.6   |
 | Android Mode               | 4.0.1   |
 | Android SDK Tools          | 25.2.5  |
@@ -17,8 +17,8 @@ With few exceptions, most of the demonstrated functionality is kept in separate 
 
 The sketches are organized into folders:
 + **Basic** - contains examples for a single functionality, which are easier to extend and combine
-+ **Utility** - contains examples which can be useful for testing or improving the behaviour your sketch 
-+ **Advanced** - contains examples combining different functionalities, as starting points for bigger sketches 
++ **Utility** - contains examples which can be useful for testing or improving the behaviour your sketch
++ **Advanced** - contains examples combining different functionalities, as starting points for bigger sketches
 
 The basic examples include objects and methods to:
 + make a **phonecall**
@@ -35,7 +35,6 @@ Have fun exploring, extending and combining!
 
 ### Basic
 + **Audio_Synth** - illustrates how to do very basic audio synthesis.
-+ **Bluetooth_List** - scans for Bluetooth devices and displays a list of results.
 + **Contact_List** - retrieves a list of contacts (names) and phone numbers for + each contact, and prints the mout on the console.
 + **Installed_Apps** - lists all the apps installed on the device.
 + **Keyboard** - illustrates how to toggle (show/hide) the software keyboard and edit a string.

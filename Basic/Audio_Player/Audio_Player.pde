@@ -11,10 +11,13 @@
  * - Many other functions are inherited from class MediaPlayer:
  *   http://developer.android.com/reference/android/media/MediaPlayer.html
  *
+ * The PAAudioPlayer makes use of the Android MediaPlayer object, which is better for playing long streams - e.g. audio tracks.
+ * If you want to play several short sounds (for a UI, game or instrument) then a SoundPool might be e better choice.
+ * 
  * If you are loading the audio file from external storage, then
  * this sketch requires the permission WRITE_EXTERNAL_STORAGE, which has to be explicitly requested with requestPermission()
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2020
  * https://github.com/tms-martins/processing-androidExamples
  */
 

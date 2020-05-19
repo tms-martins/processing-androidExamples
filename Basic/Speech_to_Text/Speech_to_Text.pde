@@ -8,7 +8,7 @@
  * 
  * After creating an object of class PASpeechToText you may call the method recognize(). 
  * This will launch the phone's recognizer, which will prompt you to speak.
- * When the phone's recognizer is done, it will return one (ore more) results to the
+ * When the phone's recognizer is done, it will return one (or more) results to the
  * PASpeechToText object. You should poll the object by calling hasResults(), and then
  * obtain either the first result or the whole list. 
  * You should then call clearResults() on the object so that it will return false
@@ -40,8 +40,12 @@ void setup() {
   // initialize the STT object
   stt = new PASpeechToText(this);
   
+  // You can set the language for speech recognition
+  // by providing an ISO 639 language code 
+  // stt.setLanguage("de");
+  
   // set the text size and drawing parameters
-  textSize(height/30);
+  textSize(24 * displayDensity);
   textAlign(CENTER, CENTER);
   fill(0);
   noStroke();
@@ -65,7 +69,7 @@ void draw() {
   }
   
   background(255);
-  text(result, 0, 0, width, height);
+  text(result, 20, 20, width-40, height-40);
 }
 
 

@@ -40,7 +40,7 @@ void setup() {
   orientation(PORTRAIT);
 
   // set the text size and drawing parameters
-  textSize(height/30);
+  textSize(24 * displayDensity);
   textAlign(CENTER, CENTER);
   fill(0);
   noStroke();

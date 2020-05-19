@@ -36,11 +36,17 @@ void setup() {
   // initialize the TTS object
   tts = new PATextToSpeech(this);
   tts.init();
-  // to choose a specific language, you should instead call 
-  // tts = new PATextToSpeech(this, Locale.<language_in_capitals>);
+  // You can set the language for speech synthesis
+  // by providing an ISO 639 language code 
+  // tts.init("de");
+  
+  // You can list available voices by calling
+  // tts.listAvailableVoices();
+  // ...and pick one voice from the list by it's index
+  // tts.setVoiceByIndex(1);
 
   // set the text size and drawing parameters
-  textSize(height/30);
+  textSize(24 * displayDensity);
   textAlign(CENTER, CENTER);
   fill(0);
   noStroke();
@@ -60,7 +66,7 @@ void draw() {
     message = "busy...";
   }
 
-  text(message, 10, 10, width-20, height-20);
+  text(message, 20, 20, width-40, height-40);
 }
 
 

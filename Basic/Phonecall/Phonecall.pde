@@ -14,7 +14,7 @@
  * This sketch requires the permission CALL_PHONE.
  * The permission CALL_PHONE has to be explicitly requested to the user, by displaying a prompt.
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2020
  * https://github.com/tms-martins/processing-androidExamples
  */
 
@@ -30,7 +30,7 @@ static final String permissionCallPhone = "android.permission.CALL_PHONE";
 String phoneNumber = "";
 
 // these will allow us to prevent "spamming" phone calls
-float minimumTimeBetweenCalls = 2000; // milliseconds 
+float minimumTimeBetweenCalls = 5000; // milliseconds 
 float timeOfLastCall = 0;
 
 
@@ -39,7 +39,7 @@ void setup() {
   orientation(PORTRAIT);
 
   // set the text size and drawing parameters
-  textSize(height/30);
+  textSize(24 * displayDensity);
   textAlign(CENTER, CENTER);
   fill(0);
   noStroke();
