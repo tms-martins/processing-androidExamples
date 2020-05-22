@@ -5,7 +5,7 @@
  * Your sketch will always be shown with the same orientation, 
  * and so it won't be restarted when someone tilts the screen. 
  * 
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2020
  * https://github.com/tms-martins/processing-androidExamples
  */
  
@@ -17,7 +17,7 @@ void setup() {
   // another possibility is 
   // orientation(LANDSCAPE);
   
-  textSize(height/30);
+  textSize(22 * displayDensity);
   textAlign(CENTER, CENTER);
   
   println("setup() called, display size: " + width + "x" + height);
@@ -26,5 +26,5 @@ void setup() {
 void draw() {
   background(0);
   fill(255);
-  text("App started " + nf(millis()/1000.0, 0, 2) + " seconds ago\nDisplay size: " + width + "x" + height, 10, 10, width-20, height-20);
+  text("App started " + nf(millis()/1000.0, 0, 2) + "\nseconds ago\nDisplay size: " + width + "x" + height, 10, 10, width-20, height-20);
 }

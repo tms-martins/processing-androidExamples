@@ -11,7 +11,7 @@
  * The "life-cycle" of an Activity is described in:
  * http://developer.android.com/reference/android/app/Activity.html 
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2020
  * https://github.com/tms-martins/processing-androidExamples
  */
 
@@ -22,7 +22,7 @@ void setup() {
   orientation(PORTRAIT);
   
   // set the text size and drawing parameters
-  textSize(height/30);
+  textSize(26 * displayDensity);
   textAlign(CENTER, CENTER);
   fill(0);
   noStroke();

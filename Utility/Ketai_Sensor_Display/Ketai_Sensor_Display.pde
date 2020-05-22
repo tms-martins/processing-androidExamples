@@ -3,7 +3,7 @@
  * It checks which sensors are available and displays their data as a horizontal bar graph.
  * Geolocation (e.g. GPS) is not included.
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2020
  * https://github.com/tms-martins/processing-androidExamples
  */
 
