@@ -10,7 +10,7 @@
  * This sketch requires the permissions ACCESS_COARSE_LOCATION, ACCESS_WIFI_STATE, CHANGE_WIFI_STATE and VIBRATE.
  * The permission ACCESS_COARSE_LOCATION has to be explicitly requested to the user, by displaying a prompt.
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2020
  * https://github.com/tms-martins/processing-androidExamples
  */
  
@@ -25,8 +25,8 @@ boolean vibrateOn = false;
 int timeLastVibrate = 0;
 
 // an object for scanning wifi and an object to store results
-WiFiScanner wifiScanner;
-ArrayList<WiFiListItem> wifiNetworks;
+WiFiList wifiScanner;
+ArrayList<ScanResult> wifiNetworks;
 
 // total of signal strengths and timestamp of the last scan
 int signalTotal = 0;
@@ -43,9 +43,9 @@ void setup() {
   
   initBuzz();
   
-  wifiNetworks = new ArrayList<WiFiListItem>();
-  wifiScanner = new WiFiScanner();
+  wifiScanner = new WiFiList();
   wifiScanner.init();
+  wifiNetworks = wifiScanner.getNetworkList();
   
   textAlign(LEFT, TOP);
 }
@@ -54,7 +54,7 @@ void draw() {
   updateNetworkScan();
   updateHeartbeat();
   
-  int txtSize = width/20;
+  int txtSize = (int)(14 * displayDensity);
   
   // clear the background and set the text/shape properties
   background(255);
@@ -70,12 +70,12 @@ void draw() {
   int barHeight = 5 + txtSize;
   
   // draw a bar for each item on the networks list
-  for(WiFiListItem item : wifiNetworks) {
+  for(ScanResult item : wifiNetworks) {
     fill(160);
     float barWidth = map(item.level, -100, -10, 30, width);
     rect(0, currentHeight, barWidth, barHeight);
     fill(0);
-    text(item.name + " : " + item.level, 10, currentHeight);
+    text(item.SSID + " : " + item.level, 10, currentHeight);
     currentHeight += barHeight;    
   }
 }
@@ -106,9 +106,9 @@ void updateHeartbeat() {
 void wifiScanFinished() {
   message = "Scan Finished";
   timeLastScanFinished = millis();
-  wifiNetworks = wifiScanner.getItems();
+  wifiNetworks = wifiScanner.getNetworkList();
   int newTotal = 0;
-  for (WiFiListItem item : wifiNetworks) {
+  for (ScanResult item : wifiNetworks) {
     newTotal += (100 + item.level); // adding 100 makes the value positive
   }
   signalTotal = newTotal;

@@ -1,8 +1,9 @@
+import android.os.Environment;
 import android.content.res.Resources;
 import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
+import android.media.AudioAttributes;
 import android.media.MediaPlayer;
-import android.os.Environment;
 
 class PAAudioPlayer extends MediaPlayer {
   PAAudioPlayer() {
@@ -25,8 +26,13 @@ class PAAudioPlayer extends MediaPlayer {
     }
     
     try {
-      this.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());
-      this.setAudioStreamType(AudioManager.STREAM_MUSIC);    // Selects the audio strema for music/media
+      this.setDataSource(afd.getFileDescriptor(),afd.getStartOffset(),afd.getLength());  
+      // Selects the audio stream for music/media
+      this.setAudioAttributes(
+            new AudioAttributes
+               .Builder()
+               .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+               .build());
       this.prepare();
       println("PAAudioPlayer: Loaded OK");
       return true;
@@ -46,8 +52,13 @@ class PAAudioPlayer extends MediaPlayer {
   boolean loadFileFullPath(String fileName) {
     println("PAAudioPlayer: loading <" + fileName + ">");
     try {
-      this.setDataSource(fileName);
-      this.setAudioStreamType(AudioManager.STREAM_MUSIC);    // Selects the audio stream for music/media
+      this.setDataSource(fileName);   
+      // Selects the audio stream for music/media
+      this.setAudioAttributes(
+            new AudioAttributes
+               .Builder()
+               .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+               .build());
       this.prepare();
       println("PAAudioPlayer: Loaded OK");
       return true;
@@ -59,6 +70,7 @@ class PAAudioPlayer extends MediaPlayer {
   }
   
   void play() {
+    println("PAAudioPlayer.play()");
     if (this.isPlaying()) {
       this.seekTo(0);
     }

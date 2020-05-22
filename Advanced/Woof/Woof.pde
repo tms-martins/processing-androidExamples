@@ -16,7 +16,7 @@
  * The permission RECORD_AUDIO has to be explicitly requested to the user, by displaying a prompt.
  * This is already handled in the startRecorder() function - see the "Recorder" tab. 
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2020
  * https://github.com/tms-martins/processing-androidExamples
  */
 
@@ -62,7 +62,7 @@ void resume() {
   startRecorder();
   
   println("Wake-locking");
-  WakeLock_lock(PowerManager.SCREEN_DIM_WAKE_LOCK);
+  WakeLock_lock();
 }
 
 
@@ -135,7 +135,7 @@ void draw() {
   
   // draw the status/info text
   textAlign(CENTER, CENTER); 
-  textSize(width/20);
+  textSize(24 * displayDensity);
   fill(0);
   String message = "Nervousness:\n" + (int)nervousness + "\nSmooth Amplitude:\n" + smoothAmplitude + "\nRough Amplitude:\n" + amplitude;
   text(message, width/2, height/2);

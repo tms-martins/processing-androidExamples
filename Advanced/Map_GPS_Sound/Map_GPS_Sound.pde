@@ -12,7 +12,7 @@
  *
  * This sketch requires the permissions ACCESS_COARSE_LOCATION and ACCESS_FINE_LOCATION.
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2020
  * https://github.com/tms-martins/processing-androidExamples
  */
 
@@ -139,7 +139,7 @@ void draw() {
   
   // draw a status message within the rectangle 
   textAlign(LEFT, CENTER);
-  textSize(height/35);
+  textSize(18 * displayDensity);
   text(message, 10, height * 4/5, width, height /5);
 }
 
