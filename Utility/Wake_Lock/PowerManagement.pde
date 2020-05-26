@@ -5,7 +5,7 @@ PowerManager powerManager;
 PowerManager.WakeLock wakeLock;
 
 void WakeLock_lock() {
-  WakeLock_lock(PowerManager.FULL_WAKE_LOCK);
+  WakeLock_lock(PowerManager.PARTIAL_WAKE_LOCK);
 }
 
 void WakeLock_lock(int lockTypeFlag) {

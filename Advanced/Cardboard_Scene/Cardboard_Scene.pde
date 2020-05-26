@@ -2,6 +2,9 @@
  * Renders a 3D scene in stereo (two viewports) and controls the camera using the phone's sensors.
  * This is meant for Google Cardboard or similar, but you can also use it wihout the stereo view - just set STEREO_RENDER to false.
  *
+ * Note that Android Mode for Processing already supports a much better way to create stereo VR content.
+ * This sketch is kept for curiosity, and future reference.
+ *
  * The sketch will work better with a gyroscope-enabled device.
  * If it doesn't find a gyro, it will use the accelerometer and compass instead (it smooths the values first).
  * When using the compass, you should tap the screen to center the view.
@@ -17,7 +20,7 @@
  *
  * This sketch requires the permission WAKE_LOCK 
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2020
  * https://github.com/tms-martins/processing-androidExamples
  */
 

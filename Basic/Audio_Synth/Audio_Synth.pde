@@ -1,15 +1,16 @@
 /*
  * This sketch illustrates how to do very basic audio synthesis with Android. 
+ * It could be useful to make a simple sonification of a sensor's value.
  *
  * It uses an AudioTrack object to play a sine wave, by writing directly to the object's audio buffer.
- * Since the buffer can be quite large, this process is quite slow on most phones.
+ * Since the buffer can be quite large, this process is rather slow on most phones.
  *
  * The tone is controlled by setting the "frequency" variable 
  * (in this case, during draw(), nased on the mouse's vertical position).
  *
  * Synth-related variables, objects and functions are in a separate tab "Synth" which can easily be copied to another sketch.
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2020
  * https://github.com/tms-martins/processing-androidExamples
  */
  

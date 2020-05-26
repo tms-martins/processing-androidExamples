@@ -2,7 +2,7 @@
  * This sketch shows how to load an image from external storage, instead of the sketch's data folder.
  *
  * If your program uses a lot of images and/or big images, including them in the data folder will make the 
- * application bigger. It will take more time to install; and changing the image implies re-compiling and re-installing.
+ * application bigger. It will take more time to install; and changing the image implies rebuilding and reinstalling.
  *
  * For this example make sure you have an image named "moon.png" inside a folder "Processing" in your phone's storage.
  * These can be found inside the sketch's folder.
@@ -16,7 +16,7 @@
  * This sketch requires the permission WRITE_EXTERNAL_STORAGE.
  * The permission WRITE_EXTERNAL_STORAGE has to be explicitly requested to the user, by displaying a prompt.
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2020
  * https://github.com/tms-martins/processing-androidExamples
  */
   
@@ -30,7 +30,7 @@ String imagePath = "Processing/";
 String imageName = "moon.png";
 
 // the path to the phone's storage, which we will obtain via the Android system
-String storagePath;
+String storagePath = "[storage]/";
 
 // reference for the loaded image
 PImage img;
@@ -44,7 +44,7 @@ void setup() {
   requestPermission(permissionWriteStorage, "loadImageFromStorage");
   
   // set the text size and drawing parameters
-  textSize(height/30);
+  textSize(22 * displayDensity);
   textAlign(CENTER, CENTER);
   imageMode(CENTER);
   fill(0);

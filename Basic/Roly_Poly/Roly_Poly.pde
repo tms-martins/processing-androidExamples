@@ -7,7 +7,10 @@
  * can reliably indicate the pull of gravity (and thus, the way down). 
  * When the device is being manipulated this method is less reliable.
  *
- * Tiago Martins 2017/2018
+ * Image source: pngimage.net "totoro png 3"
+ * href="https://pngimage.net/totoro-png-3/
+ *
+ * Tiago Martins 2017-2020
  * https://github.com/tms-martins/processing-androidExamples
  */
 
@@ -23,6 +26,10 @@ float accelX, accelY, accelZ;
 // reference to the image to be displayed
 PImage imageRolyPoly;
 
+// the anchor points for rotating the image, in pixels
+int imageAnchorX;
+int imageAnchorY;
+
 // rotation and scale of the displayed image
 float objectAngle = 0;
 float objectScale = 1;
@@ -33,7 +40,11 @@ void setup() {
   orientation(PORTRAIT);
 
   // load the image to display
-  imageRolyPoly = loadImage("BB8.png");
+  imageRolyPoly = loadImage("totoro.png");
+  
+  // set the rotation's anchor points
+  imageAnchorX = imageRolyPoly.width/2;
+  imageAnchorY = 580;
 
   // initialize the ketai sensor object
   sensor = new KetaiSensor(this);
@@ -54,7 +65,7 @@ void setup() {
 
 
 void draw() {
-  background(#FAFFAD);
+  background(#7ebde1);
   
   // if there's no accelerometer just draw a warning text and return
   if (!hasAccel) {
@@ -78,7 +89,7 @@ void draw() {
   translate(width/2, height/2);
   rotate(objectAngle);
   scale(objectScale);
-  image(imageRolyPoly, -imageRolyPoly.width/2, -imageRolyPoly.height/2);
+  image(imageRolyPoly, -imageAnchorX, -imageAnchorY);
   popMatrix();
 }
 

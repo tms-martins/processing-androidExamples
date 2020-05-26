@@ -4,7 +4,7 @@
  * The functions for listing installed apps are implemented in a separate tab 
  * so they may easily be copied onto another sketch.
  *
- * Tiago Martins 2017/2018
+ * Tiago Martins 2017-2020
  * https://github.com/tms-martins/processing-androidExamples
  */
 
@@ -26,7 +26,7 @@ void setup() {
   }
   
   // set the text size and drawing parameters
-  textSize(height/30);
+  textSize(24 * displayDensity);
   textAlign(CENTER, CENTER);
   fill(0);
   noStroke();
