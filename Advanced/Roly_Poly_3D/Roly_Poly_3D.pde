@@ -7,12 +7,12 @@
  * gyroscope and magnetometer data). If that isn't possible, it uses only the accelerometer,
  * in which case rotation around the vertical axis will have no effect.
  *
- * There are other, potentially better ways to obtain the device's rotation - e.g. "game rotation" sensor.
+ * There are better ways to obtain the device's rotation - e.g. "rotation vector" sensor.
  * These require matrix calculations with quaternions, but the Ketai library only gives us three values.
  *
  * Functions for drawing the textured cube are in a separate tab, so they can easily be copied onto another sketch.
  *
- * WARNING: Some devices don't seem to support the lights() function. Try commenting out line 59 if the app is crashing.
+ * WARNING: Some (older) devices don't seem to support the lights() function. Try commenting out line 71 if the app is crashing.
  *
  * Tiago Martins 2017-2020
  * https://github.com/tms-martins/processing-androidExamples
