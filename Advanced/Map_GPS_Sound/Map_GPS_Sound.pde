@@ -123,7 +123,7 @@ void draw() {
       timeLastPlayed = currentTime;
      
       audioSonar.setVolume(audioVolume, audioVolume);
-      audioSonar.play();
+      audioSonar.play(true); // rewind before playing
     }
   }
   
