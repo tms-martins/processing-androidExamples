@@ -32,6 +32,7 @@ class PAAudioPlayer extends MediaPlayer {
             new AudioAttributes
                .Builder()
                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+               .setUsage(AudioAttributes.USAGE_GAME)
                .build());
       this.prepare();
       println("PAAudioPlayer: Loaded OK");
@@ -58,6 +59,7 @@ class PAAudioPlayer extends MediaPlayer {
             new AudioAttributes
                .Builder()
                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+               .setUsage(AudioAttributes.USAGE_GAME)
                .build());
       this.prepare();
       println("PAAudioPlayer: Loaded OK");
@@ -71,9 +73,30 @@ class PAAudioPlayer extends MediaPlayer {
   
   void play() {
     println("PAAudioPlayer.play()");
-    if (this.isPlaying()) {
+    this.start();
+  }
+  
+  void play(boolean rewind) {
+    println("PAAudioPlayer.play(" + rewind + ")");
+    if (rewind) {
       this.seekTo(0);
     }
     this.start();
+  }
+  
+  void rewind() {
+    this.pause();
+    this.seekTo(0);
+  }
+  
+  @Override
+  void stop() {
+    println("PAAudioPlayer.stop()");
+    this.pause();
+    this.seekTo(0);
+  }
+  
+  void mediaPlayerStop() {
+    super.stop();
   }
 }
